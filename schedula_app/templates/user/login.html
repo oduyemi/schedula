@@ -1,0 +1,71 @@
+{% extends "user/index.html" %}
+{% block title %}<title>Register</title>
+<style>
+    a{
+        text-decoration:none !important;
+    }
+</style>
+{% endblock %}
+{% block hero %}{% endblock %}
+{% block mainContent %}
+<section>
+    <div class="row my-5 align-items-center mx-auto">
+        <div class="col-md-8  mt-5 mx-auto form-case">
+        <form action="" method="post">
+          {{ form.csrf_token }}
+          <div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+              {% endfor %}
+            {% endif %}
+
+            {% endwith %}
+          </div>
+            <h2 class="intro text-center mb-5 text-ggreen">Login Form</h2>
+          <div class="col-md-6 form-group mx-auto">                
+              <div class="form-group">
+                {% if form.phone.errors %}
+                          {{ form.phone (class="is_invalid") }}
+                            <div class="invalid-feedback">
+                              {% for error in form.phone.errors %}
+                              <span>{{ error }}</span>
+                              {% endfor %}
+                            </div>
+                        </div>
+                        {% else %}
+                          {{ form.phone (class="form-control my-3") }}
+                        {% endif %}
+              </div>
+
+              <div class="form-group">
+                {% if form.password.errors %}
+                          {{ form.password (class="is_invalid") }}
+                            <div class="invalid-feedback">
+                              {% for error in form.password.errors %}
+                              <span>{{ error }}</span>
+                              {% endfor %}
+                            </div>
+                        </div>
+                        {% else %}
+                          {{ form.password (class="form-control my-3") }}
+                        {% endif %}
+              </div>
+
+                    <div class"text-center my-3">
+                        <input type="checkbox" name="remember" value="{{ remember }}">&emsp;<label for="remember">Remember Me</label>
+                    </div>
+              <div class="text-center">
+                {{ form.submit (class="btn btn-success") }}
+              </div>
+                <div class="ms-5 my-3">
+                  <span class="text-success ms-5 ps-3" style="font-size:smaller">Not Registered yet? <a class="text-orange" href="{{ url_for("userReg")}}">Click Here</a>
+                </div>
+          </div>
+        </form>
+      </div>
+</section>
+{% endblock%}
+{% block extra %}{% endblock %}

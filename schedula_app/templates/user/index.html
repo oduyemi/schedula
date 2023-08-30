@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schedula</title>
+    {% block title %}<title>Schedula</title> {% endblock %}
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap/css/bootstrap.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/swiper.min.css') }}" type="text/css">
@@ -20,44 +20,47 @@
 <script type="text/javascript" language="javascript" src="static/js/main.js" defer></script>
 </head>
 <body>
-    <div class="container-fluid responsive">
-        <div class="row">
-            <div class="col-md-1">
-                    <img class="img-fluid" src="{{ url_for('static', filename='assets/images/sitelogo.png') }}" alt="logo">
-            </div>
-            <div class="col-md-6 offset-2">   
-                    <ul id="menu">
-                        <li><a href="#features">Features</a></li>&emsp;&nbsp;&emsp;&nbsp;
-                        <li><a href="#support">Support</a></li>&emsp;&nbsp;&emsp;&nbsp;
-                        <li><a href="#resources">Resourses</a></li>
-                    </ul>    
-            </div>
-            <div class="col-md-2">
-                <div>
-                    <button class="btn btn-sm _btn" style="position:absolute; top:2%">
-                        Start Now
-                    </button>
+    <main>
+        <div class="container-fluid responsive">
+            <div class="row">
+                <div class="col-md-1">
+                        <img class="img-fluid" src="{{ url_for('static', filename='assets/images/sitelogo.png') }}" alt="logo">
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <div style="background-image:url(static/assets/images/svg/todo1.svg) ; background-size:cover; height:600px"></div>
-                <div class="_intro text-center">
-                    <h1>Stay Organized<br>Stay Creative</h1>
-                    <p>
-                        Become focused, organized, and calm with<br><span id="_intro_title">Schedula</span>.
-                        The best task manager and to-do<br>list app.
-                    </p>
+                <div class="col-md-6 offset-2">   
+                        <ul id="menu">
+                            <li><a href="#features">Features</a></li>&emsp;&nbsp;&emsp;&nbsp;
+                            <li><a href="#support">Support</a></li>&emsp;&nbsp;&emsp;&nbsp;
+                            <li><a href="#resources">Resourses</a></li>
+                        </ul>    
+                </div>
+                <div class="col-md-2">
                     <div>
-                        <button class="btn btn-sm _btn text-center">
-                            Download App
+                        <button class="btn btn-sm _btn" style="position:absolute; top:2%">
+                            Start Now
                         </button>
                     </div>
                 </div>
             </div>
-        </div>
-
+            {% block hero %}
+            <div class="row">
+                <div class="col-sm-12">
+                    <div style="background-image:url(static/assets/images/svg/todo1.svg) ; background-size:cover; height:600px"></div>
+                    <div class="_intro text-center">
+                        <h1>Stay Organized<br>Stay Creative</h1>
+                        <p>
+                            Become focused, organized, and calm with<br><span id="_intro_title">Schedula</span>.
+                            The best task manager and to-do<br>list app.
+                        </p>
+                        <div>
+                            <button class="btn btn-sm _btn text-center">
+                                Download App
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endblock %}
+            {% block mainContent %}
             <section class="testimonial">
                 <div class="_testimonial mySwiper">
                     <div class="_testimonial_content swiper-wrapper">
@@ -138,49 +141,34 @@
                         <div class="swiper-pagination nav-btn"></div>
                 </div>
             </section>
+            {% endblock %}
+             {% block extra %}       
+            <div class="row">
+                <div class="col-sm-12" id="features">
+                    <h1>From bewildered to on top it</h1>
+                    <img src="" alt="" name="_slide">
                 </div>
-        <div class="row">
-            <div class="col-sm-12" id="features">
-                <h1>From bewildered to on top it</h1>
-                <img src="" alt="" name="_slide">
+                <div class="col-md-4"></div>
+                <div class="col-md-4"></div>
+                <div class="col-md-4"></div>
             </div>
-            <div class="col-md-4"></div>
-            <div class="col-md-4"></div>
-            <div class="col-md-4"></div>
+            {% endblock %}
+
+        <!-- F O O T E R -->
+            <section>
+                <div class="row mt-5 footer">
+                    <div class="col-md-12 text-center">
+            
+                    <p class="text-light">
+                        Copyright &copy; <a href="https://www.yemi.dev" target="_blank">Yẹmi<i class="icon-heart color-danger" aria-hidden="true"> </i></a><script>document.write(new Date().getFullYear());</script>  | All rights reserved.
+                    </p>
+                    </div>
+                </div>        
+                </div>
+            </section>
         </div>
-
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </div>
+    </main>
+    
     
 </body>
 </html>

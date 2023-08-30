@@ -134,6 +134,35 @@ background-color: #FB5012 !important;
     color: #fff !important;
 }
 
+.text-orange{
+    color:#FB5012;
+}
+
+.text-ggreen{
+    color:#5FAD56
+}
+
+.footer{
+    background-color: #C6C5B9;
+    position:fixed;
+    bottom: 0%;
+    width: 100%;
+  }
+  .footer-small-nav > li {
+    display: inline-block; }
+    .footer-small-nav > li a {
+      margin: 0 10px 10px 0; }
+      .footer-small-nav > li a:hover, .footer-small-nav > li a:focus {
+        color: #ffbd39; }
+
+.footer a{
+    text-decoration: none;
+    color:#fff;
+  }
+/* .form-case{
+    border: 2px solid #5FAD56;
+    width: 60%
+} */
 
 
 
