@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap/css/bootstrap.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/swiper.min.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/fontawesome/css/all.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for("static", filename="assets/css/animate.css") }}">
+    <link rel="stylesheet" href="{{url_for("static", filename="assets/fontawesome/css/all.css") }}"> 
 <style type="text/css">
 
 </style>
@@ -21,55 +22,61 @@
 </head>
 <body>
     <main>
-        <div class="container-fluid responsive">
-            <div class="row">
-                <div class="col-md-1">
-                        <img class="img-fluid" src="{{ url_for('static', filename='assets/images/sitelogo.png') }}" alt="logo">
-                </div>
-                <div class="col-md-6 offset-2">   
-                        <ul id="menu">
-                            <li><a href="#features">Features</a></li>&emsp;&nbsp;&emsp;&nbsp;
-                            <li><a href="#support">Support</a></li>&emsp;&nbsp;&emsp;&nbsp;
-                            <li><a href="#resources">Resourses</a></li>
-                        </ul>    
-                </div>
-                <div class="col-md-2">
-                    <div>
-                        <button class="btn btn-sm _btn" style="position:absolute; top:2%">
-                            Start Now
-                        </button>
+        <div class="container responsive">
+            <section>
+                <nav class="row">
+                    <div class="col-md-1">
+                            <a href={{ url_for("home") }}>
+                                <img class="img-fluid" src="{{ url_for('static', filename='assets/images/sitelogo.png') }}" alt="logo">
+                            </a>
                     </div>
-                </div>
-            </div>
-            {% block hero %}
-            <div class="row">
-                <div class="col-sm-12">
-                    <div style="background-image:url(static/assets/images/svg/todo1.svg) ; background-size:cover; height:600px"></div>
-                    <div class="_intro text-center">
-                        <h1>Stay Organized<br>Stay Creative</h1>
-                        <p>
-                            Become focused, organized, and calm with<br><span id="_intro_title">Schedula</span>.
-                            The best task manager and to-do<br>list app.
-                        </p>
+                    <div class="col-md-6 offset-2">   
+                            <ul id="menu">
+                                <li><a href="./#features">Features</a></li>&emsp;&nbsp;&emsp;&nbsp;
+                                <li><a href="./#support">Support</a></li>&emsp;&nbsp;&emsp;&nbsp;
+                                <li><a href="./#resources">Resourses</a></li>
+                            </ul>    
+                    </div>
+                    <div class="col-md-2">
                         <div>
-                            <button class="btn btn-sm _btn text-center">
-                                Download App
-                            </button>
+                            <a href={{ url_for("userLogin")}} class="btn btn-sm _btn ms-5" style="position:absolute; top:2%">
+                                Start Now
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </section>
+            {% block hero %}
+           <section class="my-5">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div style="background-image:url(static/assets/images/svg/todo1.svg) ; background-size:cover; height:600px"></div>
+                        <div class="_intro text-center">
+                            <h2 class="mb-3 animate__animated animate__pulse">Stay Organized</h2>
+                            <p>
+                                Become focused, organized, and calm with<br><span id="_intro_title">Schedula</span>.
+                                The best task manager and to-do<br>list app.
+                            </p>
+                            <div>
+                                <button class="btn btn-sm _btn text-center">
+                                    Download App
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+           </section>
             {% endblock %}
             {% block mainContent %}
-            <section class="testimonial">
+            <section class="testimonial my-5">
                 <div class="_testimonial mySwiper">
                     <div class="_testimonial_content swiper-wrapper">
                         <div class="slide swiper-slide">
                             <img src="static/assets/images/test1.jpg" alt="" class="image"><br>
                             <p>
-                                Amazing app. Now I can say that I am "very Organized!" Schedula has made this easier
-                                for me to navigate through my daily activities with so much ease.My favorite
-                                app of the entire year which is my to-do app. It"s called <i>Schedula</i>.
+                                Amazing app. Now, I can say that I am "very Organized!" Schedula has made it easier
+                                for me to navigate through my daily activities with so much ease. My favourite
+                                app of the entire year! My to-do app. It"s called <i>Schedula</i>.
                             </p>
                             <i class="fa-solid fa-quote-left quote"></i>
                             <div class="details">
@@ -81,7 +88,7 @@
                         <div class="slide swiper-slide">
                             <img src="static/assets/images/test2.jpg" alt="" class="image"><br>
                             <p>
-                                Personally the reason I like <i>Schedula</i> is mainly the simplicity.
+                                Personally, the reason I like <i>Schedula</i> is mainly the simplicity.
                                 It"s minimal and clean. <i>Schedula</i> is packed with features but only the ones that
                                 are absolutely necessary.
                             </p>
@@ -108,9 +115,8 @@
                         <div class="slide swiper-slide">
                             <img src="static/assets/images/test4.jpg" alt="" class="image"><br>
                             <p>
-                                A joy to use and beautiful to look at, Things 3 has been completely re-imagined to
-                                improve efficiency. Its thoughtful design and powerful features help you get organized and make the
-                                most out of every day. <i>Schedula</i> 3 sets the standard for how apps should be designed
+                                A joy to use and beautiful to look at. Its thoughtful design and powerful features help you get organized and make the
+                                most out of every day. <i>Schedula</i> sets the standard for how apps should be designed
                                 and developed to be their best on every device.
                             </p>
                             <i class="fa-solid fa-quote-left quote"></i>
@@ -144,23 +150,36 @@
             {% endblock %}
              {% block extra %}       
             <div class="row">
-                <div class="col-sm-12" id="features">
-                    <h1>From bewildered to on top it</h1>
+                <div class="col-sm-12 mb-3" id="features">
+                    <h2 class="text-center dark">From Bewildered to On Top of it</h2>
                     <img src="" alt="" name="_slide">
                 </div>
-                <div class="col-md-4"></div>
-                <div class="col-md-4"></div>
-                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <img src="{{ url_for('static', filename="assets/images/features/feature1.png")}}"
+                    alt="Features" class="img-thumbnail img-responsive" />
+                    <h4 class="text-center">Prioritize Your Tasks</h4>
+                </div>
+                <div class="col-md-4">
+                    <img src="{{ url_for('static', filename="assets/images/features/feature1.png")}}"
+                    alt="Features" class="img-thumbnail img-responsive" />
+                    <h4 class="text-center">Re-order The List</h4>
+                </div>
+                <div class="col-md-4">
+                    <img src="{{ url_for('static', filename="assets/images/features/feature1.png")}}"
+                    alt="Features" class="img-thumbnail img-responsive" />
+                    <h4 class="text-center">Visualize Your Tasks</h4>
+                </div>
             </div>
             {% endblock %}
-
-        <!-- F O O T E R -->
-            <section>
+        </div>
+        <div class="container-fluid">
+            <!-- F O O T E R -->
+            <section class="mt-5">
                 <div class="row mt-5 footer">
                     <div class="col-md-12 text-center">
             
                     <p class="text-light">
-                        Copyright &copy; <a href="https://www.yemi.dev" target="_blank">Yẹmi<i class="icon-heart color-danger" aria-hidden="true"> </i></a><script>document.write(new Date().getFullYear());</script>  | All rights reserved.
+                        Copyright &copy; <a href="https://www.yemi.dev" target="_blank">Yẹmi<i class="icon-heart color-danger" aria-hidden="true"></i> | All rights reserved.
                     </p>
                     </div>
                 </div>        
