@@ -1,0 +1,154 @@
+*{
+    box-sizing: border-box;
+    font-family: montserrat, sans-serif;
+    font-size: medium;
+    margin: none;
+    padding: 0;
+}
+#menu li{
+list-style: none;
+display: inline;
+}
+
+#menu a{
+color:#2D3A3A;
+text-decoration:none;
+line-height: 60px;
+}
+
+._btn{
+background-color: #5FAD56;
+border-radius: 20px;
+color:#fff;
+margin-right: 50px;
+
+
+}
+._intro{
+
+width:32%;
+position:absolute;
+top:30%;
+left:18%;
+}
+._intro p{
+width:80%;
+padding-left: 20px;
+}
+#_intro_title{
+color:#5FAD56;
+font-weight: 600;
+font-family:Guminert, sans-serif;
+font-size: larger;
+
+}
+._sect1{
+height:80vh;
+border: 2px solid;
+}
+#features h1, ._intro h1{
+color:#3D0814;
+text-align: center;
+font-weight:600;
+}
+.testimonial{
+display: flex;
+align-items: center;
+justify-content: center;
+background-color: #5FAD56;
+}
+._testimonial{
+max-height:900px;
+position:relative; 
+padding: 50px 0;
+width: 100%;
+overflow: hidden;
+}
+
+._testimonial .image{
+height:170px;
+width:170px;
+object-fit: cover;
+border-radius: 50%;
+
+}
+._testimonial .slide{
+display: flex;
+align-items:center;
+justify-content: center;
+flex-direction: column;
+row-gap: 10px;
+}
+.testimonial p{
+text-align:center;
+padding:0 100px;
+font-size: 15px;
+font-weight: 400;
+color:#fff;
+}
+.testimonial .quote{
+font-size: 18px;
+color:#FB5012;
+}
+.testimonial .details{
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.details .name{
+font-size: 14px;
+font-weight: 600;
+color:#fff;
+} 
+.details .job{
+font-size: 12px;
+font-weight: 400;
+color:#fff;
+} 
+.nav-btn{
+height:40px;
+width:40px;
+background-color: rgba(0,0,0,0.1);
+border-radius: 50%;
+transform:translateY(30px);
+transition: 0.2s;
+}
+.nav-btn :hover{
+background-color: rgba(0,0,0,0.2);
+}
+.nav-btn ::after,
+.nav-btn ::before{
+font-size: 20px;
+color: #fff;
+}
+.swiper-pagination-bullet{
+background-color: rgba(0,0,0,0.8);
+
+}
+.swiper-pagination-bullet-active{
+background-color: #FB5012 !important;
+
+}
+.swiper-button-next,
+.swiper-button-prev{
+    color: #fff !important;
+}
+
+
+
+
+@media(max-width:700px){
+._testimonial{
+margin:auto;
+float:none;
+display:block;
+}
+}
+@media(max-width:768px){
+.slide p{
+    padding:0 20px;
+}
+.nav-btn{
+    display:none;
+}
+}
