@@ -1,0 +1,50 @@
+{% extends "user/layout.html" %}
+{% block title%}
+    <title>Profile - Schedula</title>
+    <style>
+      .content{
+        padding:1.5em;
+        border: 1px solid #ccc;
+        width: 50%;
+        margin:auto;
+        position: relative;
+        top:50;
+      }
+      .form-group{
+        width:50% !important;
+    }
+    </style>
+{% endblock %}
+{% block hero %}{% endblock %}
+{% block mainContent %}
+<section class="my-5">
+  <div class="content">
+    <h3 class="text-orange text-center">Update Your Profile Picture</h3>
+    <form method="post" enctype="multipart/form-data">
+          <div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                    {% endfor %}
+                  {% endif %}
+
+                  {% endwith %}
+                </div>
+      <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token()}}">
+      <div class="form-group mx-auto">
+        <div>
+          <label for="pix" class="">Select File</label>
+          <input type="file" name="pix" class="form-control my-3">
+        </div>
+        <div>
+          <input type="submit" value="Upload" class="btn _btn">
+        </div>
+
+      </div>
+    </form>
+   </div>
+</section>
+{% endblock %}
+{% block extra %} {% endblock %}

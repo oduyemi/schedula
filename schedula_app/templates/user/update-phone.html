@@ -1,0 +1,57 @@
+{% extends "user/layout.html" %}
+{% block title%}
+    <title>Profile - Schedula</title>
+    <style>
+        .content{
+          padding:1.5em;
+          border: 1px solid #ccc;
+          width: 50%;
+          margin:auto;
+          position: relative;
+          top:50;
+        }
+        .form-group{
+            width:50% !important;
+        }
+    </style>
+{% endblock %}
+{% block hero %}{% endblock %}
+{% block mainContent %}
+<section class="my-5">
+  <div class="content text-center">
+    <h3 class="text-orange">Update Your Phone Number</h3>
+    <form method="post" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <div>
+          {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">
+                {{ message }}
+            {% endfor %}
+          {% endif %}
+
+          {% endwith %}
+        </div>
+
+      <div class="form-group mx-auto">
+        {% if form.phone.errors %}
+                  {{ form.phone (class="is_invalid") }}
+                    <div class="invalid-feedback">
+                      {% for error in form.phone.errors %}
+                      <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                </div>
+                {% else %}
+                  {{ form.phone (class="form-control my-3") }}
+                {% endif %}
+            <span class="text-center">
+                {{ form.submit (class="btn btn-success") }}
+            </span>
+    </div>
+    </form>
+   </div>
+</section>
+{% endblock %}
+{% block extra %} {% endblock %}

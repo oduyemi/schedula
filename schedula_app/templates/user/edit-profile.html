@@ -12,10 +12,6 @@
         color: #999;
         }
 
-        span a{
-            text-decoration: none;
-        }
-
         .profile{
             position: relative;
             left: 24%;
@@ -27,21 +23,16 @@
 <section class="my-5 profile">
                     <div class="row d-flex align-items-center justify-content-between">
                         <div class="col-sm-6 col-md-4">
-                            {% if info.user_img%}
-                            <img src="{{ url_for('static', filename="assets/uploads/"+info.user_img) }}" alt="" width="380" height="500" class="img-rounded img-responsive" />
-                            {% else %}
                             <img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" />
-                            {% endif %}
                         </div>
                         <div class="col-sm-6 col-md-8">
-                            <h4>{{ info.user_fname }} {{ info.user_lname }}</h4>
-                            <small>Joined since <cite>{{ info.user_regdate.strftime("%Y-%m-%d") }}<i class="glyphicon glyphicon-map-marker">
+                            <h4>Jane Doe</h4>
+                            <small>Joined since <cite>June 02, 1988<i class="glyphicon glyphicon-map-marker">
                             </i></cite></small>
                             <p>
-                                <i class="glyphicon glyphicon-envelope"></i>{{ info.user_phone }} 
-                                <span> &emsp; <a href="{{ url_for('updatePhone') }}" class="text-orange">change</a>                               
+                                <i class="glyphicon glyphicon-envelope"></i>123456789                                
                             <div class="">
-                                <a href="{{ url_for('updateProfile')}}" class="btn _btn">Update Display Picture</a>
+                                <a href="" class="btn _btn">Update Profile</a>
                             </div>
                         </div>
                     </div>

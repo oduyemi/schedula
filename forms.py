@@ -1,23 +1,23 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, TextAreaField, BooleanField
-from wtforms.validators import DataRequired, length, Regexp, EqualTo, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField, BooleanField, EmailField
+from wtforms.validators import DataRequired, length, Regexp, EqualTo, ValidationError, Email
 from schedula_app.model import Admin, User
 
 class ContactForm(FlaskForm):
-    fullname = StringField("fullname",
+    contact_name = StringField("contact_name",
         validators=[
             DataRequired(),
             length(min=2, max=30, message = "Please provide a valid name"),
             Regexp(
-                "^[A-Za-z]  [A-Za-z.]*", 0, "Your Last name must contain only letters")],
-        render_kw={"placeholder": "Full name"})
+                "^[A-Za-z][A-Za-z.]*$", 0, "Your Last name must contain only letters")],
+        render_kw={"placeholder": "Your name"})
 
-    # mail = StringField("mail",
-    #     validators=
-    #         [DataRequired(),
-    #         Email(),
-    #         Regexp('[a-z0-9]+@[a-z]+.[a-z]{2,3}', 0, "Please provide a valid email address")],
-    #         render_kw={"placeholder": "Email address"})
+    mail = EmailField("mail",
+        validators=
+            [DataRequired(),
+            Email(),    
+            Email(message="Please provide a valid email address")],
+            render_kw={"placeholder": "Email address"})
 
     phone = StringField("phone",
         validators=[
@@ -55,25 +55,25 @@ class LoginForm(FlaskForm):
 
 
 class UserRegForm(FlaskForm):
-    fname = StringField("fullname",
+    fname = StringField("fname",
     validators=[
         DataRequired(),
         length(min=1, max=20, message = "Please provide a valid name"),
         Regexp(
-            "^[A-Za-z]x*", 0, "Your First name must contain only letters"
+            "^[A-Za-z]x*", 0, "Your first name must contain only letters"
             ),
         ],
-    render_kw={"placeholder": "What's your name"})
+    render_kw={"placeholder": "Your first name"})
 
-    lname = StringField("fullname",
+    lname = StringField("lname",
     validators=[
         DataRequired(),
         length(min=1, max=20, message = "Please provide a valid name"),
         Regexp(
-            "^[A-Za-z]x*", 0, "Your First name must contain only letters"
+            "^[A-Za-z]x*", 0, "Your last name must contain only letters"
             ),
         ],
-    render_kw={"placeholder": "What's your name"})
+    render_kw={"placeholder": "Your last name"})
 
     phone = StringField("phone",
         validators=[
@@ -102,5 +102,12 @@ class UserRegForm(FlaskForm):
         if user:
             raise ValidationError("That Phone number is already registered. Please choose a different one.")
 
+class PhoneForm(FlaskForm):
+    phone = StringField("phone",
+        validators=[
+            DataRequired(),
+            length(min=2, max=50, message = "Please provide a valid name")],
+            render_kw={"placeholder": "Phone number"})
+    submit = SubmitField("Update")
 
 

@@ -1,0 +1,27 @@
+{% extends "user/layout.html" %}
+{% block title %}<title>Page Not Found - Schedula</title>
+<style>
+    a{
+        text-decoration:none !important;
+    }
+</style>
+{% endblock %}
+{% block hero %}{% endblock %}
+{% block mainContent %}
+<section>
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5" >
+        <div class="col-10 col-sm-8 col-lg-6">
+          <img src="{{ url_for('static',filename='assets/images/svg/404.svg')}}" class="d-block mx-lg-auto img-fluid img-responsive" alt="Error" width="700" height="500" loading="lazy">
+        </div>
+        <div class="col-lg-6">
+          <h1 class="display-5 fw-bold lh-1 mb-3 text-orange">Whoops!</h1>
+          <p class="lead">It looks like you have lost your way.<br>
+            <span style="color: #16302B"> Chill...Get back to base <span class="text-orange">⬇ ⬇ ⬇ </span></span> </p> 
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <a href="{{ url_for('home')}}" class="btn _btn px-4 me-md-2 base">Back to Base</a>
+          </div>
+        </div>
+      </div>
+</section>
+{% endblock %}
+{% block extra %}{% endblock %}
