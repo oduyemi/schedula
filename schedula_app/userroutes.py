@@ -60,10 +60,11 @@ def method_not_allowed(e):
 def home():
     form = ContactForm()
     if request.method == "POST":
-        name = request.form.get("contact_name")
-        mail = request.form.get("mail")
-        phone = request.form.get("phone")
-        message = request.form.get("message")
+        req = request.form
+        name = req.get("contact_name")
+        mail = req.get("mail")
+        phone = req.get("phone")
+        message = req.get("message")
         if name != "" and mail != "" and phone != "" and message != "":
             if validatePhone(phone):
                 flash("You must fill the form correctly to register", "danger")
@@ -72,10 +73,10 @@ def home():
             db.session.add(newContact)
             db.session.commit()
             flash(f"Thank you for reaching out to us, {name} We will get in touch with you shortly. ", "success")
-            return redirect(url_for("home"))
+            return redirect(request.referrer)
         else:
             flash(f"Please fill the form correctly ", "danger")
-            return redirect(url_for("home"))
+            return redirect(request.referrer)
     else:
         return render_template("user/index.html", form = form)
 
@@ -84,27 +85,26 @@ def home():
 def userReg():
     form = UserRegForm()
     if request.method == "POST":
-        fname = request.form.get("fname")
-        lname = request.form.get("lname")
-        phone = request.form.get("phone")
-        password = request.form.get("password")
-        c_password = request.form.get("c_password")
+        req = request.form
+        fname = req.get("fname")
+        lname = req.get("lname")
+        phone = req.get("phone")
+        password = req.get("password")
+        c_password = req.get("c_password")
         hashedpwd = generate_password_hash(password)        
-
         if fname !="" and lname != "" and phone != "" and password !="":
             if (validatePhone(phone) and validatePasswordMatch(password, c_password)):
-                return redirect(url_for("userReg"))
-               
+                return redirect(request.referrer)
             new_user = User(user_fname = fname, user_lname = lname, user_phone = phone, user_password= hashedpwd)
             db.session.add(new_user)
             db.session.commit()
             userid=new_user.user_id
-            session['user']=userid
+            session['user'] = userid
             flash(f"Account created for you, {fname}! Please proceed to LOGIN ", "success")
             return redirect(url_for("userLogin"))
         else:
             flash("You must fill the form correctly to register", "danger")
-            return redirect(url_for("userReg"))
+            return redirect(request.referrer)
     else:
         return render_template("user/register.html", form = form, title="Register - Schedula")
     
@@ -113,8 +113,9 @@ def userReg():
 def userLogin():
     form = LoginForm()
     if request.method == "POST":
-        phone = request.form.get("phone")
-        password = request.form.get("password")
+        req = request.form
+        phone = req.get("phone")
+        password = req.get("password")
         deets = db.session.query(User).filter(User.user_phone == phone).first() 
         if deets != None:
             pwd_indb = deets.user_password
@@ -126,7 +127,7 @@ def userLogin():
                 return redirect(url_for("app", id= id))
             else:
                 flash("Incorrect username or password", "danger")
-                return redirect(url_for("userLogin"))
+                return redirect(request.referrer)
         else:
             flash("You will need to create an account first", "danger")
             return redirect(url_for("userReg"))
@@ -136,7 +137,7 @@ def userLogin():
 @starter.route("/logout", strict_slashes = False)
 def userLogout():
     if session.get("user") != None:
-        session.pop("user",None)
+        session.pop("user", None)
     return redirect(url_for("home"))
 
 @starter.route("/app/<int:id>", strict_slashes = False)
@@ -162,8 +163,9 @@ def app(id):
 def addNew(id):
     info = User.query.get_or_404(id)
     if request.method == "POST":
-        task = request.form.get("taskName")
-        order = request.form.get("priority")
+        req = request.form
+        task = req.get("taskName")
+        order = req.get("priority")
         file = request.files['taskImg']
         filename = file.filename 
         filetype = file.mimetype 
@@ -177,12 +179,12 @@ def addNew(id):
                 db.session.add(taskInfo) 
                 db.session.commit()
                 flash("Item added", "success")
-                return redirect(url_for("addNew", id = id))
+                return redirect(request.referrer)
             else:
                 return "Images only!"
         else:
             flash("Please fill all fields")
-            return redirect(url_for("addNew", id = id))
+            return redirect(request.referrer)
 
     else:
         return render_template("user/addnew.html", info = info)
@@ -235,14 +237,14 @@ def updatePhone():
         phone = request.form.get("phone")
         if phone != "":
             if validatePhone(phone):
-                return redirect(url_for("updatePhone"))
+                return redirect(request.referrer)
             info.user_phone = phone
             db.session.commit()
             flash(f"Your phone number has been updated", "success")
-            return redirect(f"/profile/{id}")
+            return redirect(request.referrer)
         else:
             flash("Please provide your new phone number", "danger")
-            return redirect(f"/profile/{id}")
+            return redirect(request.referrer)
         
 
 
@@ -275,7 +277,7 @@ def updateProfile():
                     return "Images only!"
             else:
                 flash("Please choose a File")
-                return redirect(url_for("updateProfile"))
+                return redirect(request.referrer)
 
 
         
