@@ -1,6 +1,8 @@
 import os, random, string
 from flask import render_template, redirect, request, jsonify, session, flash, url_for
 from sqlalchemy import *
+from sqlalchemy.sql import text
+from flask_mysqldb import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import CSRFProtect
 from schedula_app import starter, db
@@ -11,6 +13,13 @@ from forms import UserRegForm, LoginForm, ContactForm, PhoneForm
 
 from schedula_app import starter
 csrf = CSRFProtect(starter)
+
+mysql = MySQL(starter)
+starter.config["MYSQL_HOST"] = "localhost"
+starter.config["MYSQL_USER"] = "root"
+starter.config["MYSQL_PASSWORD"] = ""
+starter.config["MYSQL_DB"] = "scheduladb"
+starter.config["MYSQL_CURSORCLASS"] = "DictCursor"
 
 
 #       --  H A N D Y   F U N C T I O N S  --
@@ -334,6 +343,23 @@ def updateProfile():
             else:
                 flash("Please choose a File")
                 return redirect(request.referrer)
+
+
+@starter.route("/livesearch", methods = ["POST", "GET"])
+def livesearch():
+    searchbox = request.form.get("text")
+    cursor = mysql.connection.cursor()
+    query = "SELECT task_item FROM task WHERE task_item LIKE '{}%' ORDER BY task_item".format(searchbox)
+    cursor.execute(query)
+    result = cursor.fetchall()
+    return jsonify(result)      
+
+
+@starter.route("/searchApp", methods = ['POST', 'GET'], strict_slashes = False)
+def searchbox():
+    user = session.get("user")
+    allTasks = db.session.query(Task).filter(Task.task_user == user).all()
+    return redirect(url_for('app', id = user), allTasks=allTasks) 
 
 
         

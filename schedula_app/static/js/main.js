@@ -22,19 +22,19 @@ var swiper = new Swiper(".mySwiper", {
   },
 });
 
-let i=0
-let images=[];
-let time=3000;
 
-images[0]=
-images[1]=
-images[2]=
-function changeImg(){
-document._slide.src=images
-if(i<(images.length)-1){
-i++
-}else{i=0}
-}
+
+(function ($) {
+  "use strict";
+  var spinner = function () {
+      setTimeout(function () {
+          if ($('#spinner').length > 0) {
+              $('#spinner').removeClass('show');
+          }
+      }, 1);
+  };
+  spinner();
+})
 
 $(window).scroll(function () {
   if ($(this).scrollTop() > 300) {
@@ -47,18 +47,3 @@ $('.back-to-top').click(function () {
   $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
   return false;
 });
-
-
-(function ($) {
-  "use strict";
-
-  // Spinner
-  var spinner = function () {
-      setTimeout(function () {
-          if ($('#spinner').length > 0) {
-              $('#spinner').removeClass('show');
-          }
-      }, 1);
-  };
-  spinner();
-})

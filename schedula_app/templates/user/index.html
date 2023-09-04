@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,67 +12,64 @@
     <link rel="stylesheet" href="{{url_for("static", filename="assets/fontawesome/css/all.css") }}"> 
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    OneSignalDeferred.push(function(OneSignal) {
-        OneSignal.init({
-        appId: "07b705f3-42ed-4d38-adec-d5c50f53c1f7",
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        OneSignalDeferred.push(function(OneSignal) {
+            OneSignal.init({
+                appId: "07b705f3-42ed-4d38-adec-d5c50f53c1f7",
+            });
         });
-    });
-</script>
+    </script>
 </head>
 <body>
     <main>
         <section>
             <header class="headnav">
                 <nav id="header" class="text-white bg-transparent">
-                    <div class="mx-auto container d-none d-md-flex align-items-center justify-content-between mt-0 py-1">
+                    <div class="mx-auto container responsive d-none d-md-flex align-items-center justify-content-between mt-0 py-1">
                         <div class="logo-wrapper pl-5 d-flex align-items-center">
-                            <a class="">
+                            <a href="{{url_for("home")}}">
                                 <img class="object-cover" width="50%" alt="logo"
                                 src="{{ url_for('static', filename='assets/images/sitelogo.png') }}" />
                             </a>
-                            
                         </div>
                         <div class="nav-menu-wrapper toggleColor d-none d-md-flex align-items-center justify-content-between space-x-8">
                             <a class="nav-link dark" href="./#features">Features</a>
-                            <a class="nav-link dark" href="./#support">Support</a>
                             <a class="nav-link dark" href="./#resources">Resources</a>
-                        
+                            <a class="nav-link dark" href="./#contact">Contact</a>
                         </div>
                         <div class="d-none d-md-flex align-items-center justify-content-between space-x-6 pr-2">
                             <a href={{ url_for("userLogin")}} class="btn btn-sm _btn ms-5">Start Now</a>
                         </div>
                     </div>
-                               <!-- Hamburger Menu -->
-                                <div class="mobilenav d-md-none d-block">
-                                    <a href="/">
-                                        <img src="{{ url_for('static', filename='assets/images/sitelogo.png') }}"
-                                        class="object-cover" width="26%" alt="Sitelogo"/>
-                                    </a>
-                                    <div id="navlinks">
-                                        <a class="nav-link dark" href="./#features">Features</a>
-                                        <a class="nav-link dark" href="./#support">Support</a>
-                                        <a class="nav-link dark" href="./#resources">Resources</a>
-                                        <div class="" style="width:24%">
-                                            <a href={{ url_for("start")}} class="btn btn-sm _btn ms-5">Start Now</a>
-                                        </div>
-                                    </div>
-
-                                    <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
-                                    <a href="javascript:void(0);" class="icon" onclick="mobile_toggle()">
-                                    <i class="fa fa-bars p-5"></i>
-                                    </a>
-                                </div>    
+                    <!-- Hamburger Menu -->
+                    <div class="mobilenav d-md-none d-block">
+                        <a href="{{url_for("home")}}">
+                            <img src="{{ url_for('static', filename='assets/images/sitelogo.png') }}"
+                            class="object-cover" width="26%" alt="Sitelogo"/>
+                        </a>
+                        <div id="navlinks">
+                            <a class="nav-link dark" href="./#features">Features</a>
+                            <a class="nav-link dark" href="./#resources">Resources</a>
+                            <a class="nav-link dark" href="./#contact">Contact</a>
+                            <div class="" style="width:24%">
+                                <a href={{ url_for("start")}} class="btn btn-sm _btn ms-5">Start Now</a>
+                            </div>
+                        </div>
+                        <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+                        <a href="javascript:void(0);" class="icon" onclick="mobile_toggle()">
+                        <i class="fa fa-bars p-5"></i>
+                        </a>
+                    </div>
                 </nav>
             </header>
         </section>
-            {% block hero %}
-           <section class="my-5">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div style="background-image:url(static/assets/images/svg/todo1.svg) ; background-size:cover; height:600px"></div>
+        {% block hero %}
+        <section class="my-5">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div style="background-image:url(static/assets/images/svg/todo1.svg) ; background-size:cover; height:520px">
                         <div class="_intro text-center">
-                            <h2 class="mb-3 animate__animated animate__pulse">Stay Organized</h2>
+                            <h2 class="mb-3 animate__animated animate__pulse animate__delay-3s">Stay Organized</h2>
                             <p>
                                 Become focused, organized, and calm with<br><span id="_intro_title">Schedula</span>.
                                 The best task manager and to-do<br>list app.
@@ -83,257 +81,239 @@
                             </div>
                         </div>
                     </div>
-                </div>
-           </section>
-            {% endblock %}
-            {% block mainContent %}
-            <section class="testimonial">
-                <div class="_testimonial mySwiper">
-                    <div class="_testimonial_content swiper-wrapper">
-                        <div class="slide swiper-slide">
-                            <img src="{{ url_for('static', filename='assets/images/test1.jpg') }}" alt="" class="image"><br>
-                            <p>
-                                Amazing app. Now I can say that I am "very Organized!" Schedula has made this easier
-                                for me to navigate through my daily activities with so much ease.My favorite
-                                app of the entire year which is my to-do app. It's called <i>Schedula</i>.
-                            </p>
-                            <i class="fa-solid fa-quote-left quote"></i>
-                            <div class="details">
-                                <span class="name">Femi Bello</span>
-                                <span class="job">Photographer</span>
-                            </div>    
-                        </div>
-
-                        <div class="slide swiper-slide">
-                            <img src="{{ url_for('static', filename='assets/images/test2.jpg') }}" alt="" class="image"><br>
-                            <p>
-                                Personally the reason I like <i>Schedula</i> is mainly the simplicity.
-                                It's minimal and clean. <i>Schedula</i> is packed with features but only the ones that
-                                are absolutely necessary.
-                            </p>
-                            <i class="fa-solid fa-quote-left quote"></i>
-                            <div class="details">
-                                <span class="name">Amanda Roland</span>
-                                <span class="job">Software Engineer</span>
-                            </div>    
-                        </div>
-
-                        <div class="slide swiper-slide">
-                            <img src="{{ url_for('static', filename='assets/images/test3.jpg') }}" alt="" class="image"><br>
-                            <p>
-                            The UX is on another level. Every few months I try a dozen alternatives but always
-                            find a way to make use of <i>Schedula</i>.
-                            </p>
-                            <i class="fa-solid fa-quote-left quote"></i>
-                            <div class="details">
-                                <span class="name">Seyi Makinde</span>
-                                <span class="job">Banker</span>
-                            </div>    
-                        </div>
-
-                        <div class="slide swiper-slide">
-                            <img src="{{ url_for('static', filename='assets/images/test4.jpg') }}" alt="" class="image"><br>
-                            <p>
-                                A joy to use and beautiful to look at, Things 3 has been completely re-imagined to
-                                improve efficiency. Its thoughtful design and powerful features help you get organized and make the
-                                most out of every day. <i>Schedula</i> 3 sets the standard for how apps should be designed
-                                and developed to be their best on every device.
-                            </p>
-                            <i class="fa-solid fa-quote-left quote"></i>
-                            <div class="details">
-                                <span class="name">Chidubem James</span>
-                                <span class="job">Civil Engineer</span>
-                            </div>    
-                        </div>
-
-                        <div class="slide swiper-slide">
-                            <img src="{{ url_for('static', filename='assets/images/test5.jpg') }}" alt="" class="image"><br>
-                            
-                            <p>
-                                You would be hard-pressed to find a better looking to-do app <i>Schedula</i>.
-                                The first time I opened it on my iPad, I couldn’t help but
-                                pause a few moments to admire it. It’s simple, but beautiful in
-                                its simplicity. Screenshots don’t quite do it the justice it deserves.”
-                            </p>
-                            <i class="fa-solid fa-quote-left quote"></i>
-                            <div class="details">
-                                <span class="name">Hassan Umar</span>
-                                <span class="job">Logistic Manager</span>
-                            </div>    
-                        </div></div>
-        
-                        <div class="swiper-button-next nav-btn"></div>
-                        <div class="swiper-button-prev nav-btn"></div>
-                        <div class="swiper-pagination nav-btn"></div>
-                </div>
-            </section>
-            {% endblock %}
-             {% block extra %}       
-            <div class="row">
-                <div class="col-sm-12 mb-3" id="features">
-                    <h2 class="text-center text-ggreen">From Bewildered to On Top of it</h2>
-                    <img src="" alt="" name="_slide">
-                </div>
-                <div class="col-md-4">
-                    <img src="{{ url_for('static', filename="assets/images/features/prioritize.png")}}"
-                    alt="Features" class="img-thumbnail img-responsive" />
-                    <h4 class="text-center">Prioritize Your Tasks</h4>
-                </div>
-                <div class="col-md-4">
-                    <img src="{{ url_for('static', filename="assets/images/features/reorder.png")}}"
-                    alt="Features" class="img-thumbnail img-responsive" />
-                    <h4 class="text-center">Re-order Your List</h4>
-                </div>
-                <div class="col-md-4">
-                    <img src="{{ url_for('static', filename="assets/images/features/visualize.png")}}"
-                    alt="Features" class="img-thumbnail img-responsive" />
-                    <h4 class="text-center">Visualize Your Tasks</h4>
+                    
                 </div>
             </div>
-
-            <section id="support" class="mt-5">
-                <div class="row text-center">
-                    <div class="col=12">
-                        <h1 class="intro my-5 text-center text-ggreen">Support</h1>
+        </section>
+        {% endblock %}
+        {% block mainContent %}
+        <section class="testimonial my-5">
+            <div class="_testimonial mySwiper">
+                <div class="_testimonial_content swiper-wrapper">
+                    <div class="slide swiper-slide">
+                        <img src="{{ url_for("static", filename="assets/images/test1.jpg") }}" alt="" class="image"><br>
+                        <p>
+                            Amazing app. Now I can say that I am "very Organized!" Schedula has made this easier
+                            for me to navigate through my daily activities with so much ease.My favorite
+                            app of the entire year which is my to-do app. It's called <i>Schedula</i>.
+                        </p>
+                        <i class="fa-solid fa-quote-left quote"></i>
+                        <div class="details">
+                            <span class="name">Femi Bello</span>
+                            <span class="job">Photographer</span>
+                        </div>    
                     </div>
-                        <h2>The Basics</h2>
-                            
-                            <div class="fancygrid is-1-1-1">
-            
-                                <a class="fancylink is-hero has-icon-when" href="articles/2803579">
-                                    <h6 class="fancylink-title">Using Dates and Times</h6>
-                                    <p class="fancylink-description">Learn how to use Today, Anytime, Upcoming and Someday.</p>
-                                </a>
-            
-                                <a class="fancylink is-hero has-icon-tags" href="articles/2803581">
-                                    <h6 class="fancylink-title">Using Tags</h6>
-                                    <p class="fancylink-description">Sharpen your focus by using tags to categorize your to-dos.</p>
-                                </a>
-                                
-                                <a class="fancylink is-hero has-icon-search" href="articles/2803584">
-                                    <h6 class="fancylink-title">Searching &amp; Navigating with Quick Find</h6>
-                                    <p class="fancylink-description">Navigate to any list and find everything instantly.</p>
-                                </a>
-                            
-                                <a class="fancylink is-hero has-icon-repeating" href="articles/2803564">
-                                    <h6 class="fancylink-title">Repeating To-Dos</h6>
-                                    <p class="fancylink-description">For anything you need to do every few days, weeks, or months.</p>
-                                </a>
-            
-                                <a class="fancylink is-hero has-icon-notes" href="articles/4438545">
-                                    <h6 class="fancylink-title">Using Notes in Things</h6>
-                                    <p class="fancylink-description">Capture all the extra details you need to get the task done.</p>
-                                </a>
-                                
-                                <a class="fancylink is-hero has-icon-idea" href="articles/6378414">
-                                    <h6 class="fancylink-title">Getting Productive with Things</h6>
-                                    <p class="fancylink-description">A quick guide to getting the most out of Things.</p>
-                                </a>
-                    
-                            </div>
-                    <div class="row my-2 align-items-center mx-auto">
-                        <div class="col-12">
-                            <h2 class="intro text-center">SEND US A MESSAGE</h2>
-                            <form action="" method="post">
-                                {{ form.csrf_token }}
-                                {% with messages = get_flashed_messages(with_categories=true) %}
-                                {% if messages %}
-                                {% for category, message in messages %}
-                                    <div class="alert alert-{{ category }}">
-                                    {{ message}}
-                                {% endfor %}
-                                {% endif %}
-                                
-                                {% endwith %}
+
+                    <div class="slide swiper-slide">
+                        <img src="{{ url_for("static", filename="assets/images/test2.jpg") }}" alt="" class="image"><br>
+                        <p>
+                            Personally the reason I like <i>Schedula</i> is mainly the simplicity.
+                            It's minimal and clean. <i>Schedula</i> is packed with features but only the ones that
+                            are absolutely necessary.
+                        </p>
+                        <i class="fa-solid fa-quote-left quote"></i>
+                        <div class="details">
+                            <span class="name">Amanda Roland</span>
+                            <span class="job">Software Engineer</span>
+                        </div>    
+                    </div>
+
+                    <div class="slide swiper-slide">
+                        <img src="{{ url_for("static", filename="assets/images/test3.jpg") }}" alt="" class="image"><br>
+                        <p>
+                        The UX is on another level. Every few months I try a dozen alternatives but always
+                        find a way to make use of <i>Schedula</i>.
+                        </p>
+                        <i class="fa-solid fa-quote-left quote"></i>
+                        <div class="details">
+                            <span class="name">Seyi Makinde</span>
+                            <span class="job">Banker</span>
+                        </div>    
+                    </div>
+
+                    <div class="slide swiper-slide">
+                        <img src="{{ url_for("static", filename="assets/images/test4.jpg") }}" alt="" class="image"><br>
+                        <p>
+                            A joy to use and beautiful to look at, Things 3 has been completely re-imagined to
+                            improve efficiency. Its thoughtful design and powerful features help you get organized and make the
+                            most out of every day. <i>Schedula</i> 3 sets the standard for how apps should be designed
+                            and developed to be their best on every device.
+                        </p>
+                        <i class="fa-solid fa-quote-left quote"></i>
+                        <div class="details">
+                            <span class="name">Chidubem James</span>
+                            <span class="job">Civil Engineer</span>
+                        </div>    
+                    </div>
+
+                    <div class="slide swiper-slide">
+                        <img src="{{ url_for("static", filename="assets/images/test5.jpg") }}" alt="" class="image"><br>
+                        
+                        <p>
+                            You would be hard-pressed to find a better looking to-do app <i>Schedula</i>.
+                            The first time I opened it on my iPad, I couldn’t help but
+                            pause a few moments to admire it. It’s simple, but beautiful in
+                            its simplicity. Screenshots don’t quite do it the justice it deserves.”
+                        </p>
+                        <i class="fa-solid fa-quote-left quote"></i>
+                        <div class="details">
+                            <span class="name">Hassan Umar</span>
+                            <span class="job">Logistic Manager</span>
+                        </div>    
+                    </div></div>
+    
+                    <div class="swiper-button-next nav-btn"></div>
+                    <div class="swiper-button-prev nav-btn"></div>
+                    <div class="swiper-pagination nav-btn"></div>
+            </div>
+        </section>
+
+        <section class="my-5">
+            <div class="row">                
+                <div class="row d-flex justify-content-center align-items-center" id="resources">
+                    <div class="col-7">
+                        <img src="{{ url_for('static', filename="assets/images/resources.png")}}"
+                            alt="Features" class="img-thumbnail img-responsive" />
+                    </div>
+                    <div class="col-4">
+                        <h3 class="text-secondary" id="contact">Get Things Done</h3>
+                        <p>
+                            Whatever it is you want to accomplish in life,
+                            <span id="_intro_title">Schedula</span>
+                            can help you get there. Install the app today and
+                            see what you can do!
+                        </p>
+                    </div>
+                </div>
+        </section>
+        {% endblock %}
+        {% block extra %}
+        <section class="my-5">
+            <div class="row mt-5">
+                <div class="col-sm-12 mb-5 mt-5" id="features">
+                    <h2 class="text-center text-secondary mt-5">From Bewildered to On Top of it</h2>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <h6 class="text-center text-ggreen">Prioritize Your Tasks</h6>
+                    <img src="{{ url_for('static', filename="assets/images/features/prioritize.png")}}"
+                    alt="Features" class="img-thumbnail img-responsive" />
+                </div>
+                <div class="col-md-4 mt-3">
+                    <h6 class="text-center text-ggreen">Update Your List</h6>
+                    <img src="{{ url_for('static', filename="assets/images/features/reorder.png")}}"
+                    alt="Features" class="img-thumbnail img-responsive" />
+                </div>
+                <div class="col-md-4 mt-3">
+                    <h6 class="text-center text-ggreen">Visualize Your Tasks</h6>
+                    <img src="{{ url_for('static', filename="assets/images/features/visualize.png")}}"
+                    alt="Features" class="img-thumbnail img-responsive" />
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-5">
+            <div class="row text-center">
+                <h3 class="text-secondary" id="contact">Ready to talk?</h3>
+                <div class="row my-2 align-items-center mx-auto">
+                    <div class="col-12">
+                        <h6 class="text-center text-ggreen">SEND US A MESSAGE</h6>
+                        <form action="" method="post">
+                            {{ form.csrf_token }}
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }}">
+                                {{ message}}
+                            {% endfor %}
+                            {% endif %}
+                            {% endwith %}
                             <div class="col-md-6 form-group mx-auto">                
                                 <div class="form-group">
                                     {% if form.contact_name.errors %}
-                                            {{ form.contact_name (class="is_invalid") }}
-                                                <div class="invalid-feedback">
-                                                {% for error in form.contact_name.errors %}
-                                                <span>{{ error }}</span>
-                                                {% endfor %}
-                                                </div>
-                                            </div>
-                                            {% else %}
-                                            {{ form.contact_name (class="form-control my-3") }}
-                                            {% endif %}
+                                        {{ form.contact_name (class="is_invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.contact_name.errors %}
+                                            <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    {{ form.contact_name (class="form-control my-3") }}
+                                    {% endif %}
                                 </div>
-                
                                 <div class="form-group">
                                     {% if form.phone.errors %}
-                                            {{ form.phone (class="is_invalid") }}
-                                                <div class="invalid-feedback">
-                                                {% for error in form.phone.errors %}
-                                                <span>{{ error }}</span>
-                                                {% endfor %}
-                                                </div>
-                                            </div>
-                                            {% else %}
-                                            {{ form.phone (class="form-control my-3") }}
-                                            {% endif %}
+                                        {{ form.phone (class="is_invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.phone.errors %}
+                                            <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    {{ form.phone (class="form-control my-3") }}
+                                    {% endif %}
                                 </div>
-                
                                 <div class="form-group">
                                     {% if form.mail.errors %}
-                                            {{ form.mail (class="is_invalid") }}
-                                                <div class="invalid-feedback">
-                                                {% for error in form.mail.errors %}
-                                                <span>{{ error }}</span>
-                                                {% endfor %}
-                                                </div>
-                                            </div>
-                                            {% else %}
-                                            {{ form.mail (class="form-control my-3") }}
-                                            {% endif %}
+                                        {{ form.mail (class="is_invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.mail.errors %}
+                                            <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    {{ form.mail (class="form-control my-3") }}
+                                    {% endif %}
                                 </div>
-                
                                 <div class="form-group">
                                     {% if form.message.errors %}
-                                            {{ form.message (class="is_invalid") }}
-                                                <div class="invalid-feedback">
-                                                {% for error in form.message.errors %}
-                                                <span>{{ error }}</span>
-                                                {% endfor %}
-                                                </div>
-                                            </div>
-                                            {% else %}
-                                            {{ form.message (class="form-control my-3") }}
-                                            {% endif %}
-                                
+                                        {{ form.message (class="is_invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.message.errors %}
+                                            <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    {{ form.message (class="form-control my-3") }}
+                                    {% endif %}
+                                </div>
                                 <div class="text-center">
                                     {{ form.submit (class="btn _btn") }}
                                 </div>
                             </div>
-                            </form>
-                        </div>
-            </section>
-              
-            {% endblock %}
-        </div>
-        <div class="container-fluid">
-            <!-- F O O T E R -->
-            <section class="mt-5">
-                <div class="row mt-5 footer">
-                    <div class="col-md-12 text-center">
-            
-                    <p class="text-light">
-                        Copyright &copy; <a href="https://www.yemi.dev" target="_blank">Yẹmi</a><i class="icon-heart color-danger" aria-hidden="true"></i> | All rights reserved.
-                    </p>
+                        </form>
                     </div>
-                </div>        
                 </div>
-            </section>
-        </div>
-                <!-- Back to Top -->
-                <a href="#" class="btn btn-lg btn-ggreen btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
             </div>
-        >
-    </main>
+        </section>
+        <!-- ... (other sections) ... -->
 
+       
+        {% endblock %}
+    </main>
+    <div class="container-fluid">
+        <section class="mt-5">
+            <div class="row mt-5 footer">
+                <div class="col-md-12 text-center">
+        
+                <p class="text-light">
+                    Copyright &copy; <a href="https://www.yemi.dev" target="_blank">Yẹmi<i class="icon-heart color-danger" aria-hidden="true"></i> | All rights reserved.
+                </p>
+                </div>
+            </div>        
+            </div>
+        </section>
+    </div>
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-ggreen btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+    </div>
+    </main>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/swiper.min.js') }}"></script>
     <script type="text/javascript" language="javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
-
 </body>
 </html>
