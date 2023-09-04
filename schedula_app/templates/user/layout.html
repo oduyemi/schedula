@@ -9,6 +9,15 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/swiper.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url_for("static", filename="assets/css/animate.css") }}">
     <link rel="stylesheet" href="{{url_for("static", filename="assets/fontawesome/css/all.css") }}"> 
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(function(OneSignal) {
+        OneSignal.init({
+        appId: "07b705f3-42ed-4d38-adec-d5c50f53c1f7",
+        });
+    });
+    </script>
 <style type="text/css">
 
 </style>
@@ -41,7 +50,7 @@
                             
                             </div>
                             <div class="d-none d-md-flex align-items-center justify-content-between space-x-6 pr-2">
-                                <a href={{ url_for("userLogin")}} class="btn btn-sm _btn ms-5">Start Now</a>
+                                <a href={{ url_for("start")}} class="btn btn-sm _btn ms-5">Start Now</a>
                             </div>
                         </div>
                                    <!-- Hamburger Menu -->

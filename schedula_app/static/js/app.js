@@ -41,11 +41,13 @@
     }, {offset: '80%'});
 
 
-    // Calender
-    $('#calender').datetimepicker({
-        inline: true,
-        format: 'L'
+    $(document).ready(function() {
+        $('#calender').datetimepicker({
+            inline: true,
+            format: 'L'
+        });
     });
+    
 
 
     // Testimonials carousel

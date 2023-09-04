@@ -17,10 +17,19 @@
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
     <link href="{{ url_for('static', filename='assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='assets/css/app.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(function(OneSignal) {
+        OneSignal.init({
+        appId: "07b705f3-42ed-4d38-adec-d5c50f53c1f7",
+        });
+    });
+    </script>
 </head>
 
 <body>
@@ -111,7 +120,11 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            {% if info.user_img %}
                             <img class="rounded-circle me-lg-2" src="{{ url_for("static", filename="assets/uploads/"+info.user_img) }}" alt="" style="width: 40px; height: 40px;">
+                            {% else %}
+                            <img class="rounded-circle me-lg-2" src="http://placehold.it/40x40" alt="" style="width: 40px; height: 40px;">
+                            {% endif %}
                             <span class="d-none d-lg-inline-flex">{{ info.user_fname }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -142,11 +155,7 @@
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <div class="ms-3">
                                 <a href="{{ url_for("must", id = info.user_id)}}" class="text-ggreen fw-bold mb-2">Should Do</a>
-                                {% if mid %}
                                 <h6 class="mb-0">{{ mid }}</h6>
-                                {% else %}
-                                <h6 class="mb-0">0</h6>
-                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -154,11 +163,7 @@
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <div class="ms-3">
                                 <a href="{{ url_for("must", id = info.user_id)}}" class="text-ggreen fw-bold mb-2">Could Do</a>
-                                {% if least %}
                                 <h6 class="mb-0">{{ least }}</h6>
-                                {% else %}
-                                <h6 class="mb-0">0</h6>
-                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -181,28 +186,39 @@
                         <div class="bg-light text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h6 class="mb-0">Must Do List</h6>
-                                <a href="">Show All</a>
+                                <a href="{{url_for("must", id = info.user_id) }}">Show All</a>
                             </div>
                     {% if t %}
                     {% for a in t %}
                     <div class="d-flex align-items-center border-bottom py-2">
-                        <input class="form-check-input m-0" type="checkbox">
                         <div class="w-100 ms-3">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="col-2">
                                     <img class="rounded-circle flex-shrink-0" src="{{url_for("static",filename="assets/uploads/"+a.task_img) }}" alt="" style="width: 40px; height: 40px;">
                                 </div>
-                                <div class="col-4">
+                                <div class="col-6">
                                     <p class="mt-2">{{ a.task_item }}</p>
                                 </div>
-                                <div class="col-2">
-                                    <a href="" class="text-ggreen">change</a>
+                                <div class="col-1">
+                                    {% if a.task_status == 1 %}
+                                    <i class="fa fa-circle text-secondary"></i>
+                                    {% elif a.task_status == 2 %}
+                                    <i class="fa fa-spinner text-warning"></i>
+                                    {% else %}
+                                    <i class="fa fa-check-double text-ggreen"></i>
+                                    {% endif %}
                                 </div>
-                                <div class="col-2">
-                                    <a href="{{ url_for("deleteTodo", id = a.task_id)}}" class="text-orange"><i class="fa fa-trash"></i></a>
+                               
+                                <div class="col-1">
+                                    {% if a.task_status == 1 %}
+                                    <a href="{{ url_for("toDoing", id = a.task_id) }}" class="text-ggreen">Update</a>
+                                    {% elif a.task_status == 2 %}
+                                    <a href="{{ url_for("toDone", id = a.task_id) }}" class="text-ggreen">Update</a>
+                                    {% else %}
+                                    {% endif %}
                                 </div>
                                 <div class="col-1">
-                                    <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                                    <a href="{{ url_for("deleteTodo", id = a.task_id)}}" class="text-orange"><i class="fa fa-trash"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -214,7 +230,7 @@
                         </p>
                     {% endif %}
                     <div class="mt-3 text-center">
-                        <a href="" class="btn btn-ggreen">Add New</a>
+                        <a href="{{ url_for("addNew", id=info.user_id) }}" class="btn btn-ggreen">Add New</a>
                     </div>
                 </div>
             </div>
@@ -222,28 +238,38 @@
                         <div class="bg-light text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h6 class="mb-0">Should Do List</h6>
-                                <a href="">Show All</a>
+                                <a href="{{url_for("should", id = info.user_id) }}">Show All</a>
                             </div>
             {% if m %}
             {% for b in m %}
-            <div class="d-flex align-items-center border-bottom py-2">
-                <input class="form-check-input m-0" type="checkbox">
+            <div class="d-flex align-items-center border-bottom py-1">
                 <div class="w-100 ms-3">
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="col-2">
                             <img class="rounded-circle flex-shrink-0" src="{{url_for("static",filename="assets/uploads/"+b.task_img) }}" alt="" style="width: 40px; height: 40px;">
                         </div>
-                        <div class="col-4">
+                        <div class="col-6">
                             <p class="mt-2">{{ b.task_item }}</p>
                         </div>
-                        <div class="col-2">
-                            <a href="" class="text-ggreen">change</a>
-                        </div>
-                        <div class="col-2">
-                            <a href="{{ url_for("deleteTodo", id = b.task_id)}}" class="text-orange"><i class="fa fa-trash"></i></a>
+                        <div class="col-1">
+                            {% if b.task_status == 1 %}
+                            <i class="fa fa-circle text-secondary"></i>
+                            {% elif b.task_status == 2 %}
+                            <i class="fa fa-spinner text-warning"></i>
+                            {% else %}
+                            <i class="fa fa-check-double text-ggreen"></i>
+                            {% endif %}
                         </div>
                         <div class="col-1">
-                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                            {% if b.task_status == 1 %}
+                            <a href="{{ url_for("toDoing", id = b.task_id) }}" class="text-ggreen">Update</a>
+                            {% elif b.task_status == 2 %}
+                            <a href="{{ url_for("toDone", id = b.task_id) }}" class="text-ggreen">Update</a>
+                            {% else %}
+                            {% endif %}
+                        </div>
+                        <div class="col-1">
+                            <a href="{{ url_for("deleteTodo", id = b.task_id)}}" class="text-orange"><i class="fa fa-trash"></i></a>
                         </div>
                     </div>
                 </div>
@@ -255,7 +281,7 @@
                 </p>
             {% endif %}
                             <div class="mt-3 mb-3 text-center">
-                                <a href="" class="btn btn-ggreen mb-2">Add New</a>
+                                <a href="{{ url_for("addNew", id=info.user_id) }}" class="btn btn-ggreen mb-2">Add New</a>
                             </div>
                         </div>
                     </div>
@@ -267,26 +293,25 @@
                 <div class="row g-4">
                     <div class="col-sm-12 col-md-6 col-xl-4">
                         <div class="h-100 bg-light rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                <h6 class="mb-0">Notifications</h6>
-                                <a href="">Show All</a>
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <h6 class="mb-0 text-orange">Schedula Tips</h6>
                             </div>
                             <div class="d-flex align-items-center border-bottom py-3">
-                                <div class="w-100 ms-3">
-                                    <p>Short message goes here...</p>
-                                    <small>15 minutes ago</small>
+                                <div class="w-100 ms-3 my-2">
+                                    <span><i class="fa fa-circle text-secondary">&emsp;</i></span>
+                                    <small> represents accomplished tasks</small>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center border-bottom py-3">
-                                <div class="w-100 ms-3">
-                                    <p>Short message goes here...</p>
-                                    <small>15 minutes ago</small>
+                                <div class="w-100 ms-3 my-2">
+                                    <span><i class="fa fa-spinner text-warning">&emsp;</i></span>
+                                    <small> represents accomplished tasks</small>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center border-bottom py-3">
-                                <div class="w-100 ms-3">
-                                    <p>Short message goes here...</p>
-                                    <small>15 minutes ago</small>
+                                <div class="w-100 ms-3 my-2">
+                                    <span><i class="fa fa-check-double text-ggreen">&emsp;</i></span>
+                                    <small> represents accomplished tasks</small>
                                 </div>
                             </div>
                         </div>
@@ -295,37 +320,49 @@
                         <div class="h-100 bg-light rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h6 class="mb-0">Calender</h6>
-                                <a href="">Show All</a>
                             </div>
-                            <div id="calender"></div>
+                            <div class="text-center">
+                                <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=UTC&showPrint=0&showTabs=1&showCalendars=1&src=Y2Y1MGY2ZTExNTYyZjc0NWM3NDdlNDFkM2Q2NGRkNzZkZDBlZjVhOGIwNzA4ZDNiZWI1MjdkODg1ZjRlNzdjYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&src=ZmFtaWx5MDYyMjI5NTYyMzA4MDY1NTk1OTJAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&src=ZW4ubmcjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23F09300&color=%2333B679&color=%23C0CA33&color=%230B8043" width="290" height="320" frameborder="0" scrolling="no"></iframe>						
+
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-xl-4">
                         <div class="h-100 bg-light rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h6 class="mb-0">Could Do List</h6>
-                                <a href="">Show All</a>
+                                <a href="{{url_for("could", id = info.user_id) }}">Show All</a>
                             </div>
                     {% if l %}
                     {% for c in l %}
                     <div class="d-flex align-items-center border-bottom py-2">
-                        <input class="form-check-input m-0" type="checkbox">
                         <div class="w-100 ms-3">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="col-2">
                                     <img class="rounded-circle flex-shrink-0" src="{{url_for("static",filename="assets/uploads/"+c.task_img) }}" alt="" style="width: 40px; height: 40px;">
                                 </div>
-                                <div class="col-4">
+                                <div class="col-6">
                                     <p class="mt-2">{{ c.task_item }}</p>
                                 </div>
-                                <div class="col-2">
-                                    <a href="" class="text-ggreen">change</a>
-                                </div>
-                                <div class="col-2">
-                                    <a href="{{ url_for("deleteTodo", id = c.task_id)}}" class="text-orange"><i class="fa fa-trash"></i></a>
+                                <div class="col-1">
+                                    {% if c.task_status == 1 %}
+                                    <i class="fa fa-circle text-secondary"></i>
+                                    {% elif c.task_status == 2 %}
+                                    <i class="fa fa-spinner text-warning"></i>
+                                    {% else %}
+                                    <i class="fa fa-check-double text-ggreen"></i>
+                                    {% endif %}
                                 </div>
                                 <div class="col-1">
-                                    <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                                    {% if c.task_status == 1 %}
+                                    <a href="{{ url_for("toDoing", id = c.task_id) }}" class="text-ggreen">Update</a>
+                                    {% elif c.task_status == 2 %}
+                                    <a href="{{ url_for("toDone", id = c.task_id) }}" class="text-ggreen">Update</a>
+                                    {% else %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-1">
+                                    <a href="{{ url_for("deleteTodo", id = c.task_id)}}" class="text-orange"><i class="fa fa-trash"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -348,7 +385,7 @@
                         <div class="col-12 col-sm-6 text-center text-sm-start">
                             <p class="text-light">
                                 Copyright &copy;
-                                <a href="https://www.yemi.dev" target="_blank">Yẹmi<i class="icon-heart color-danger" aria-hidden="true"></i> | All rights reserved.
+                                <a href="https://www.yemi.dev" target="_blank" class="text-dark">Yẹmi<i class="icon-heart color-danger" aria-hidden="true"></i> | All rights reserved.
                             </p>
                         </div>
                     </div>
@@ -361,15 +398,18 @@
     </div>
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="{{ url_for("static", filename="js/chart.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/easing.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/waypoints.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/owl.carousel.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/moment.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/moment-timezone.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="tempusdominus-bootstrap-4.min.js") }}"></script>
 
     <!-- Template Javascript -->
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>

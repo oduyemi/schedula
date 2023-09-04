@@ -7,28 +7,37 @@
         <div class="row">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <h6 class="mb-0">Must Do List</h6>
-                    <a href="">Check All</a>
                 </div>
                 {% if todo %}
                 {% for t in todo %}
                 <div class="d-flex align-items-center border-bottom py-2">
-                    <input class="form-check-input m-0" type="checkbox">
                     <div class="w-100 ms-3">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="col-2">
                                 <img class="rounded-circle flex-shrink-0" src="{{url_for("static",filename="assets/uploads/"+t.task_img) }}" alt="" style="width: 40px; height: 40px;">
                             </div>
-                            <div class="col-4">
+                            <div class="col-6">
                                 <p class="mt-2">{{ t.task_item }}</p>
                             </div>
-                            <div class="col-2">
-                                <a href="" class="text-ggreen">change</a>
-                            </div>
-                            <div class="col-2">
-                                <a href="{{ url_for("deleteTodo", id = t.task_id)}}" class="text-orange"><i class="fa fa-trash"></i></a>
+                            <div class="col-1">
+                                {% if t.task_status == 1 %}
+                                <i class="fa fa-circle text-secondary"></i>
+                                {% elif t.task_status == 2 %}
+                                <i class="fa fa-spinner text-warning"></i>
+                                {% else %}
+                                <i class="fa fa-check-double text-ggreen"></i>
+                                {% endif %}
                             </div>
                             <div class="col-1">
-                                <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                                {% if t.task_status == 1 %}
+                                <a href="{{ url_for("toDoing", id = t.task_id) }}" class="text-ggreen">Update</a>
+                                {% elif t.task_status == 2 %}
+                                <a href="{{ url_for("toDone", id = t.task_id) }}" class="text-ggreen">Update</a>
+                                {% else %}
+                                {% endif %}
+                            </div>
+                            <div class="col-1">
+                                <a href="{{ url_for("deleteTodo", id = t.task_id)}}" class="text-orange"><i class="fa fa-trash"></i></a>
                             </div>
                         </div>
                     </div>
@@ -37,7 +46,7 @@
                 {% else %}
                     <p class="text-center">
                         It appears your list is <span class="text-orange">empty</span>. &emsp; &emsp; 
-                        <a href="" class="btn btn-ggreen">Add New Task</a>
+                        <a href="{{ url_for("addNew", id=info.user_id) }}" class="btn btn-ggreen">Add New Task</a>
                     </p>
                 {% endif %}
         </div>
