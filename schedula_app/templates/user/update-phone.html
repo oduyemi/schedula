@@ -20,7 +20,7 @@
 <section class="my-5">
   <div class="content text-center">
     <h3 class="text-orange">Update Your Phone Number</h3>
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" action="">
         {{ form.csrf_token }}
         <div>
           {% with messages = get_flashed_messages(with_categories=true) %}

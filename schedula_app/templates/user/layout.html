@@ -191,6 +191,43 @@
                     <h4 class="text-center">Visualize Your Tasks</h4>
                 </div>
             </div>
+        <section>
+            <h2>The Basics</h2>
+				
+				<div class="fancygrid is-1-1-1">
+
+					<a class="fancylink is-hero has-icon-when" href="articles/2803579">
+						<h6 class="fancylink-title">Using Dates and Times</h6>
+						<p class="fancylink-description">Learn how to use Today, Anytime, Upcoming and Someday.</p>
+					</a>
+
+					<a class="fancylink is-hero has-icon-tags" href="articles/2803581">
+						<h6 class="fancylink-title">Using Tags</h6>
+						<p class="fancylink-description">Sharpen your focus by using tags to categorize your to-dos.</p>
+					</a>
+					
+					<a class="fancylink is-hero has-icon-search" href="articles/2803584">
+						<h6 class="fancylink-title">Searching &amp; Navigating with Quick Find</h6>
+						<p class="fancylink-description">Navigate to any list and find everything instantly.</p>
+					</a>
+				
+					<a class="fancylink is-hero has-icon-repeating" href="articles/2803564">
+						<h6 class="fancylink-title">Repeating To-Dos</h6>
+						<p class="fancylink-description">For anything you need to do every few days, weeks, or months.</p>
+					</a>
+
+					<a class="fancylink is-hero has-icon-notes" href="articles/4438545">
+						<h6 class="fancylink-title">Using Notes in Things</h6>
+						<p class="fancylink-description">Capture all the extra details you need to get the task done.</p>
+					</a>
+					
+					<a class="fancylink is-hero has-icon-idea" href="articles/6378414">
+						<h6 class="fancylink-title">Getting Productive with Things</h6>
+						<p class="fancylink-description">A quick guide to getting the most out of Things.</p>
+					</a>
+		
+				</div>
+            </section>
             
             {% endblock %}
         </div>
@@ -208,8 +245,13 @@
                 </div>
             </section>
         </div>
+          <!-- Back to Top -->
+          <a href="#" class="btn btn-lg btn-ggreen btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        </div>
     </main>
     
-    
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/swiper.min.js') }}"></script>
+    <script type="text/javascript" language="javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

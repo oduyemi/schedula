@@ -63,8 +63,8 @@
                             <a href="{{ url_for("could", id = info.user_id) }}" class="dropdown-item">Could Do</a>
                         </div>
                     </div>
-                    <a href="{{ url_for("addNew", id=info.user_id) }}" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Add New</a>
-                    <a href="{{ url_for("userLogout") }}" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Logout</a>
+                    <a href="{{ url_for("addNew", id=info.user_id) }}" class="nav-item nav-link"><i class="fa fa-plus me-2"></i>Add New</a>
+                    <a href="{{ url_for("userLogout") }}" class="nav-item nav-link"><i class="fa fa-power-off me-2"></i>Logout</a>
                 </div>
             </nav>
         </div>
@@ -129,32 +129,44 @@
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <div class="ms-3">
-                                <p class="mb-2">Must Do</p>
-                                <h6 class="mb-0">4</h6>
+                                <a href="{{ url_for("must", id = info.user_id)}}" class="text-ggreen fw-bold mb-2">Must Do</a>
+                                {% if top %}
+                                <h6 class="mb-0">{{ top }}</h6>
+                                {% else %}
+                                <h6 class="mb-0">0</h6>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <div class="ms-3">
-                                <p class="mb-2">Should Do</p>
-                                <h6 class="mb-0">10</h6>
+                                <a href="{{ url_for("must", id = info.user_id)}}" class="text-ggreen fw-bold mb-2">Should Do</a>
+                                {% if mid %}
+                                <h6 class="mb-0">{{ mid }}</h6>
+                                {% else %}
+                                <h6 class="mb-0">0</h6>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <div class="ms-3">
-                                <p class="mb-2">Could Do</p>
-                                <h6 class="mb-0">3</h6>
+                                <a href="{{ url_for("must", id = info.user_id)}}" class="text-ggreen fw-bold mb-2">Could Do</a>
+                                {% if least %}
+                                <h6 class="mb-0">{{ least }}</h6>
+                                {% else %}
+                                <h6 class="mb-0">0</h6>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <div class="ms-3">
-                                <p class="mb-2">Total</p>
-                                <h6 class="mb-0">17</h6>
+                                <p class="text-ggreen fw-bold mb-2">Total</p>
+                                <h6 class="mb-0">{{ total }}</h6>
                             </div>
                         </div>
                     </div>
@@ -171,80 +183,79 @@
                                 <h6 class="mb-0">Must Do List</h6>
                                 <a href="">Show All</a>
                             </div>
-                            
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <input class="form-check-input m-0" type="checkbox">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                        <span>Short task goes here...</span>
-                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                    </div>
+                    {% if t %}
+                    {% for a in t %}
+                    <div class="d-flex align-items-center border-bottom py-2">
+                        <input class="form-check-input m-0" type="checkbox">
+                        <div class="w-100 ms-3">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="col-2">
+                                    <img class="rounded-circle flex-shrink-0" src="{{url_for("static",filename="assets/uploads/"+a.task_img) }}" alt="" style="width: 40px; height: 40px;">
                                 </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <input class="form-check-input m-0" type="checkbox">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                        <span>Short task goes here...</span>
-                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                    </div>
+                                <div class="col-4">
+                                    <p class="mt-2">{{ a.task_item }}</p>
                                 </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <input class="form-check-input m-0" type="checkbox" checked>
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                        <span><del>Short task goes here...</del></span>
-                                        <button class="btn btn-sm text-ggreen"><i class="fa fa-times"></i></button>
-                                    </div>
+                                <div class="col-2">
+                                    <a href="" class="text-ggreen">change</a>
                                 </div>
-                            </div>
-                            <div class="mt-3 text-center">
-                                <a href="" class="btn btn-ggreen">Add New</a>
+                                <div class="col-2">
+                                    <a href="{{ url_for("deleteTodo", id = a.task_id)}}" class="text-orange"><i class="fa fa-trash"></i></a>
+                                </div>
+                                <div class="col-1">
+                                    <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
+                    {% else %}
+                        <p class="text-center">
+                            It appears your list is <span class="text-orange">empty</span>. &emsp; &emsp; 
+                        </p>
+                    {% endif %}
+                    <div class="mt-3 text-center">
+                        <a href="" class="btn btn-ggreen">Add New</a>
+                    </div>
+                </div>
+            </div>
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h6 class="mb-0">Should Do List</h6>
                                 <a href="">Show All</a>
                             </div>
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <input class="form-check-input m-0" type="checkbox" checked>
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                        <span><del>Short task goes here...</del></span>
-                                        <button class="btn btn-sm text-ggreen"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <input class="form-check-input m-0" type="checkbox">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                        <span>Short task goes here...</span>
-                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center pt-2">
-                                <input class="form-check-input m-0" type="checkbox">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                        <span>Short task goes here...</span>
-                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-3 mb-2 text-center">
-                                <a href="" class="btn btn-ggreen">Add New</a>
+            {% if m %}
+            {% for b in m %}
+            <div class="d-flex align-items-center border-bottom py-2">
+                <input class="form-check-input m-0" type="checkbox">
+                <div class="w-100 ms-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="col-2">
+                            <img class="rounded-circle flex-shrink-0" src="{{url_for("static",filename="assets/uploads/"+b.task_img) }}" alt="" style="width: 40px; height: 40px;">
+                        </div>
+                        <div class="col-4">
+                            <p class="mt-2">{{ b.task_item }}</p>
+                        </div>
+                        <div class="col-2">
+                            <a href="" class="text-ggreen">change</a>
+                        </div>
+                        <div class="col-2">
+                            <a href="{{ url_for("deleteTodo", id = b.task_id)}}" class="text-orange"><i class="fa fa-trash"></i></a>
+                        </div>
+                        <div class="col-1">
+                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+                <p class="text-center">
+                    It appears your list is <span class="text-orange">empty</span>. &emsp; &emsp; 
+                </p>
+            {% endif %}
+                            <div class="mt-3 mb-3 text-center">
+                                <a href="" class="btn btn-ggreen mb-2">Add New</a>
                             </div>
                         </div>
                     </div>
@@ -295,51 +306,50 @@
                                 <h6 class="mb-0">Could Do List</h6>
                                 <a href="">Show All</a>
                             </div>
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <input class="form-check-input m-0" type="checkbox">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                        <span>Short task goes here...</span>
-                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                    </div>
+                    {% if l %}
+                    {% for c in l %}
+                    <div class="d-flex align-items-center border-bottom py-2">
+                        <input class="form-check-input m-0" type="checkbox">
+                        <div class="w-100 ms-3">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="col-2">
+                                    <img class="rounded-circle flex-shrink-0" src="{{url_for("static",filename="assets/uploads/"+c.task_img) }}" alt="" style="width: 40px; height: 40px;">
                                 </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <input class="form-check-input m-0" type="checkbox" checked>
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                        <span><del>Short task goes here...</del></span>
-                                        <button class="btn btn-sm text-ggreen"><i class="fa fa-times"></i></button>
-                                    </div>
+                                <div class="col-4">
+                                    <p class="mt-2">{{ c.task_item }}</p>
                                 </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <input class="form-check-input m-0" type="checkbox">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                        <span>Short task goes here...</span>
-                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                    </div>
+                                <div class="col-2">
+                                    <a href="" class="text-ggreen">change</a>
                                 </div>
-                            </div>
-                            <div class="mt-3 text-center">
-                                <a href="" class="btn btn-ggreen">Add New</a>
+                                <div class="col-2">
+                                    <a href="{{ url_for("deleteTodo", id = c.task_id)}}" class="text-orange"><i class="fa fa-trash"></i></a>
+                                </div>
+                                <div class="col-1">
+                                    <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            {% endblock %}
+                    {% endfor %}
+                    {% else %}
+                        <p class="text-center">
+                            It appears your list is <span class="text-orange">empty</span>. &emsp; &emsp; 
+                        </p>
+                    {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endblock %}
 
             <!-- Footer  -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="https://www.yemi.dev/" target="_blank">Yemi</a> All Right Reserved. 
+                            <p class="text-light">
+                                Copyright &copy;
+                                <a href="https://www.yemi.dev" target="_blank">Yẹmi<i class="icon-heart color-danger" aria-hidden="true"></i> | All rights reserved.
+                            </p>
                         </div>
                     </div>
                 </div>

@@ -9,91 +9,37 @@
                     <h6 class="mb-0">Must Do List</h6>
                     <a href="">Check All</a>
                 </div>
-                
+                {% if todo %}
+                {% for t in todo %}
                 <div class="d-flex align-items-center border-bottom py-2">
                     <input class="form-check-input m-0" type="checkbox">
                     <div class="w-100 ms-3">
                         <div class="d-flex align-items-center justify-content-between">
-                            <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span>Short task goes here...</span>
-                            <a href="" class="text-ggreen">Re-order</a>
-                            <a href="" class="text-orange">Delete</a>
-                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                            <div class="col-2">
+                                <img class="rounded-circle flex-shrink-0" src="{{url_for("static",filename="assets/uploads/"+t.task_img) }}" alt="" style="width: 40px; height: 40px;">
+                            </div>
+                            <div class="col-4">
+                                <p class="mt-2">{{ t.task_item }}</p>
+                            </div>
+                            <div class="col-2">
+                                <a href="" class="text-ggreen">change</a>
+                            </div>
+                            <div class="col-2">
+                                <a href="{{ url_for("deleteTodo", id = t.task_id)}}" class="text-orange"><i class="fa fa-trash"></i></a>
+                            </div>
+                            <div class="col-1">
+                                <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="d-flex align-items-center border-bottom py-2">
-                    <input class="form-check-input m-0" type="checkbox">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span>Short task goes here...</span>
-                            <a href="" class="text-ggreen">Re-order</a>
-                            <a href="" class="text-orange">Delete</a>
-                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center border-bottom py-2">
-                    <input class="form-check-input m-0" type="checkbox" checked>
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span><del>Short task goes here...</del></span>
-                            <a href="" class="text-ggreen">Re-order</a>
-                            <a href="" class="text-orange">Delete</a>
-                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center border-bottom py-2">
-                    <input class="form-check-input m-0" type="checkbox">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span>Short task goes here...</span>
-                            <a href="" class="text-ggreen">Re-order</a>
-                            <a href="" class="text-orange">Delete</a>
-                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center border-bottom py-2">
-                    <input class="form-check-input m-0" type="checkbox">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span>Short task goes here...</span>
-                            <a href="" class="text-ggreen">Re-order</a>
-                            <a href="" class="text-orange">Delete</a>
-                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center border-bottom py-2">
-                    <input class="form-check-input m-0" type="checkbox">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span>Short task goes here...</span>
-                            <a href="" class="text-ggreen">Re-order</a>
-                            <a href="" class="text-orange">Delete</a>
-                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center border-bottom py-2">
-                    <input class="form-check-input m-0" type="checkbox">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span>Short task goes here...</span>
-                            <a href="" class="text-ggreen">Re-order</a>
-                            <a href="" class="text-orange">Delete</a>
-                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
+                {% else %}
+                    <p class="text-center">
+                        It appears your list is <span class="text-orange">empty</span>. &emsp; &emsp; 
+                        <a href="" class="btn btn-ggreen">Add New Task</a>
+                    </p>
+                {% endif %}
         </div>
     </div>
 </div>

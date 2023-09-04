@@ -66,6 +66,12 @@
     border-radius: 12px;
 }
 
+.bg-ggreen{
+    background-color: #5FAD56;
+    color: #FFFFFF;
+}
+
+
 .btn-square,
 .btn-sm-square,
 .btn-lg-square {

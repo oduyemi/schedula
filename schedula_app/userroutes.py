@@ -4,7 +4,7 @@ from sqlalchemy import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import CSRFProtect
 from schedula_app import starter, db
-from schedula_app.model import User, Contact
+from schedula_app.model import User, Contact, Task
 from forms import UserRegForm, LoginForm, ContactForm, PhoneForm
 
 
@@ -95,7 +95,7 @@ def userReg():
             if (validatePhone(phone) and validatePasswordMatch(password, c_password)):
                 return redirect(url_for("userReg"))
                
-            new_user=User(user_fname = fname, user_lname = lname, user_phone = phone, user_password= hashedpwd)
+            new_user = User(user_fname = fname, user_lname = lname, user_phone = phone, user_password= hashedpwd)
             db.session.add(new_user)
             db.session.commit()
             userid=new_user.user_id
@@ -142,8 +142,18 @@ def userLogout():
 @starter.route("/app/<int:id>", strict_slashes = False)
 def app(id):
     info = User.query.get_or_404(id)
+    t = Task.query.filter_by(task_user = info.user_id, task_priority = 1).all()
+    tp = Task.query.filter_by(task_user = info.user_id, task_priority = 1).limit(3).all()
+    m = Task.query.filter_by(task_user = info.user_id, task_priority = 2).all()
+    md = Task.query.filter_by(task_user = info.user_id, task_priority = 2).limit(3).all()
+    l = Task.query.filter_by(task_user = info.user_id, task_priority = 3).all()
+    lt = Task.query.filter_by(task_user = info.user_id, task_priority = 3).limit(3).all()
+    top = len(t)
+    mid = len(m)
+    least = len(l)
+    total = len(t) + len(m) + len(l)
     if id:
-        return render_template("user/app.html", info = info)
+        return render_template("user/app.html", info = info, top = top, mid = mid, least = least, total= total, t=tp, m=md, l=lt)
     else:
         return redirect(url_for("userLogin"))
 
@@ -151,26 +161,62 @@ def app(id):
 @starter.route("/addnew/<int:id>", methods = ["POST", "GET"], strict_slashes = False)
 def addNew(id):
     info = User.query.get_or_404(id)
-    if request.method == "GET":
+    if request.method == "POST":
+        task = request.form.get("taskName")
+        order = request.form.get("priority")
+        file = request.files['taskImg']
+        filename = file.filename 
+        filetype = file.mimetype 
+        allowed = [".png", ".jpg", ".jpeg", ".webp", ".aviv"]
+        if task != "" and order != "" and filename != "":
+            name, ext = os.path.splitext(filename) 
+            if ext.lower() in allowed: 
+                img_task = generate_name()+ext
+                file.save("schedula_app/static/assets/uploads/"+img_task)
+                taskInfo = Task(task_item = task, task_priority = order, task_img = img_task, task_user=id, task_status = 1)
+                db.session.add(taskInfo) 
+                db.session.commit()
+                flash("Item added", "success")
+                return redirect(url_for("addNew", id = id))
+            else:
+                return "Images only!"
+        else:
+            flash("Please fill all fields")
+            return redirect(url_for("addNew", id = id))
+
+    else:
         return render_template("user/addnew.html", info = info)
 
 
 @starter.route("/must-do-list/<int:id>", strict_slashes = False)
 def must(id):
     info = User.query.get_or_404(id)
-    return render_template("user/must.html", info = info)
+    todo = Task.query.filter_by(task_user = info.user_id, task_priority = 1).all()
+    return render_template("user/must.html", info = info, todo = todo)
 
 
 @starter.route("/should-do-list/<int:id>", strict_slashes = False)
 def should(id):
     info = User.query.get_or_404(id)
-    return render_template("user/should.html", info = info)
+    todo = db.session.query(Task).filter_by(task_user = info.user_id, task_priority = 2).all() 
+    return render_template("user/should.html", info = info, todo = todo)
 
 
 @starter.route("/could-do-list/<int:id>", strict_slashes = False)
 def could(id):
     info = User.query.get_or_404(id)
-    return render_template("user/could.html", info = info)
+    todo = db.session.query(Task).filter_by(task_user = info.user_id, task_priority = 3).all() 
+    return render_template("user/could.html", info = info, todo = todo)
+
+
+@starter.route("/delete/<int:id>", strict_slashes = False)
+def deleteTodo(id):
+    task_to_delete = Task.query.get_or_404(id)
+    db.session.delete(task_to_delete)
+    db.session.commit()
+    # current_url = request.url
+    return redirect(request.referrer)
+
     
 
 @starter.route("/profile/<int:id>", strict_slashes = False)
