@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField, BooleanField, EmailField
 from wtforms.validators import DataRequired, length, Regexp, EqualTo, ValidationError, Email
-from schedula_app.model import Admin, User
+from schedula_app.model import User
 
 class ContactForm(FlaskForm):
     contact_name = StringField("contact_name",

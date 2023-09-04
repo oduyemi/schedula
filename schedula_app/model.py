@@ -41,13 +41,3 @@ class Contact(db.Model):
     contact_message=db.Column(db.Text(),nullable=False)
     contact_date = db.Column(db.DateTime(), default=datetime.utcnow)
 
-
-class Admin(db.Model):
-    admin_id = db.Column(db.Integer, autoincrement = True,primary_key=True)
-    admin_fname = db.Column(db.String(100),nullable = True)
-    admin_lname = db.Column(db.String(100),nullable = True)
-    admin_username = db.Column(db.String(100),nullable = False, unique=True)
-    admin_password = db.Column(db.String(200),nullable = True)
-    admin_regdate = db.Column(db.DateTime(), default = datetime.utcnow)
-
-
