@@ -294,22 +294,54 @@ def userProfile(id):
 
 @starter.route("/update/phone-number", methods = ["POST", "GET"], strict_slashes = False)
 def updatePhone():
+    id = session.get("user")
+    info = db.session.query(User).get(id)
     form = PhoneForm()
-    if request.method == "GET":
-        return render_template("user/update-phone.html", form = form)
-    else:
-        info = db.session.query(User).get(id)
-        phone = request.form.get("phone")
-        if phone != "":
-            if validatePhone(phone):
+    if request.method == "POST":
+        req = request.form
+        new_phone = req.get("phone")
+        if new_phone != "":
+            if validatePhone(new_phone):
+                info.user_phone = new_phone
+                db.session.commit()
+                flash(f"Your phone number has been updated", "success")
                 return redirect(request.referrer)
-            info.user_phone = phone
-            db.session.commit()
-            flash(f"Your phone number has been updated", "success")
-            return redirect(request.referrer)
-        else:
-            flash("Please provide your new phone number", "danger")
-            return redirect(request.referrer)
+            else:
+                return redirect(request.referrer)    
+    else:
+         return render_template("user/update-phone.html", form = form)
+
+
+@starter.route("/update/task", methods = ["POST", "GET"], strict_slashes = False)
+def updateTask():
+    id = session.get("user")
+    info = db.session.query(User).get(id)
+    todo = db.session.query(Task).filter(Task.task_user==id).first()
+    if request.method == "POST":
+        req = request.form
+        task = req.get("task")
+        order = req.get("taskOrder")
+        file = request.files['taskDp']
+        filename = file.filename 
+        filetype = file.mimetype 
+        allowed = [".png", ".jpg", ".jpeg", ".webp", ".aviv"]
+        if task != "" and order !="" and filename != "":
+            name, ext = os.path.splitext(filename) 
+            if ext.lower() in allowed: 
+                newTaskDp = generate_name()+ext
+                file.save("schedula_app/static/assets/uploads/"+newTaskDp)
+                todo.task_item = task
+                todo.task_priority = order
+                todo.task_img = newTaskDp
+                todo.task_user = id
+                db.session.commit() 
+                flash(f"Your task has been updated", "success")
+                return redirect(request.referrer)
+            else:
+                flash("Please fill the fields", "danger")
+                return redirect(request.referrer)    
+    else:
+         return render_template("user/update-task.html", info = info)
         
 
 

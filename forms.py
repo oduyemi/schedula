@@ -106,8 +106,16 @@ class PhoneForm(FlaskForm):
     phone = StringField("phone",
         validators=[
             DataRequired(),
-            length(min=2, max=50, message = "Please provide a valid name")],
+            length(min=7, max=20, message = "Please provide a valid phone number")],
             render_kw={"placeholder": "Phone number"})
     submit = SubmitField("Update")
 
+class TaskForm(FlaskForm):
+    task = StringField("task",
+    validators=[
+        DataRequired(),
+        length(min=3, max=200, message = "Please fill the field correctly"),
+        ],
+    render_kw={"placeholder": "Update your task"})
+    submit = SubmitField("Update")
 

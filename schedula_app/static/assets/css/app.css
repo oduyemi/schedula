@@ -172,6 +172,7 @@
     background: var(--light);
 }
 
+
 .sidebar .navbar .dropdown-toggle::after {
     position: absolute;
     top: 15px;
@@ -232,6 +233,15 @@
 @media (max-width: 575.98px) {
     .content .navbar .navbar-nav .nav-link {
         margin-left: 15px;
+    }
+}
+
+@media (max-width: 767px) {
+    .todoItem{
+        white-space: wrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 70px
     }
 }
 

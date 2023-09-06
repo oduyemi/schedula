@@ -2,17 +2,29 @@
 {% block title%}
     <title>Profile - Schedula</title>
     <style>
-        .content{
-          padding:1.5em;
-          border: 1px solid #ccc;
-          width: 50%;
-          margin:auto;
-          position: relative;
-          top:50;
-        }
-        .form-group{
-            width:50% !important;
-        }
+      .content{
+        padding:1.5em;
+        border: 1px solid #ccc;
+        width: fit-content;
+        margin:auto;
+        position: relative;
+        left:1%;
+      }
+      .form-group{
+        width: 22vw;
+    }
+
+    @media(max-width:767px){
+      .content{
+        position: relative;
+        width:90vw;
+        left:0%;
+      }
+
+      .form-group{
+        width:fit-content !important;
+      }
+    }
     </style>
 {% endblock %}
 {% block hero %}{% endblock %}

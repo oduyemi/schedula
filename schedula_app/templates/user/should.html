@@ -16,8 +16,8 @@
                         <div class="col-2">
                             <img class="rounded-circle flex-shrink-0" src="{{url_for("static",filename="assets/uploads/"+t.task_img) }}" alt="" style="width: 40px; height: 40px;">
                         </div>
-                        <div class="col-6">
-                            <p class="mt-2">{{ t.task_item }}</p>
+                        <div class="col-4">
+                            <p class="mt-2">{{ t.task_item }} <span><a href="{{ url_for("updateTask")}}"><i class="fa fa-pen text-primary pencil"></i></a></span></p>
                         </div>
                         <div class="col-1">
                             {% if t.task_status == 1 %}
@@ -30,9 +30,9 @@
                         </div>
                         <div class="col-1">
                             {% if t.task_status == 1 %}
-                            <a href="{{ url_for("toDoing", id = t.task_id) }}" class="text-ggreen">Update</a>
+                            <a href="{{ url_for("toDoing", id = t.task_id) }}" class="text-ggreen"><i class="fa fa-pen-nib"></i></a>
                             {% elif t.task_status == 2 %}
-                            <a href="{{ url_for("toDone", id = t.task_id) }}" class="text-ggreen">Update</a>
+                            <a href="{{ url_for("toDone", id = t.task_id) }}" class="text-ggreen"><i class="fa fa-pen-nib"></i></a>
                             {% else %}
                             {% endif %}
                         </div>

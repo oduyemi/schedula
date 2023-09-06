@@ -154,7 +154,7 @@
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <div class="ms-3">
-                                <a href="{{ url_for("must", id = info.user_id)}}" class="text-ggreen fw-bold mb-2">Should Do</a>
+                                <a href="{{ url_for("should", id = info.user_id)}}" class="text-ggreen fw-bold mb-2">Should Do</a>
                                 <h6 class="mb-0">{{ mid }}</h6>
                             </div>
                         </div>
@@ -162,7 +162,7 @@
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <div class="ms-3">
-                                <a href="{{ url_for("must", id = info.user_id)}}" class="text-ggreen fw-bold mb-2">Could Do</a>
+                                <a href="{{ url_for("could", id = info.user_id)}}" class="text-ggreen fw-bold mb-2">Could Do</a>
                                 <h6 class="mb-0">{{ least }}</h6>
                             </div>
                         </div>
@@ -191,13 +191,13 @@
                     {% if t %}
                     {% for a in t %}
                     <div class="d-flex align-items-center border-bottom py-2">
-                        <div class="w-100 ms-3">
+                        <div class="w-100">
                             <div class="d-flex align-items-center justify-content-between">
-                                <div class="col-2">
+                                <div class="col-1">
                                     <img class="rounded-circle flex-shrink-0" src="{{url_for("static",filename="assets/uploads/"+a.task_img) }}" alt="" style="width: 40px; height: 40px;">
                                 </div>
-                                <div class="col-6">
-                                    <p class="mt-2">{{ a.task_item }}</p>
+                                <div class="col-4">
+                                    <p class="mt-2 todoItem d-inline">{{ a.task_item }} <span><a href="{{ url_for("updateTask")}}"><i class="fa fa-pen text-primary pencil"></i></a></span></p>
                                 </div>
                                 <div class="col-1">
                                     {% if a.task_status == 1 %}
@@ -211,9 +211,9 @@
                                
                                 <div class="col-1">
                                     {% if a.task_status == 1 %}
-                                    <a href="{{ url_for("toDoing", id = a.task_id) }}" class="text-ggreen">Update</a>
+                                    <a href="{{ url_for("toDoing", id = a.task_id) }}" class="text-ggreen"><i class="fa fa-pen-nib"></i></a>
                                     {% elif a.task_status == 2 %}
-                                    <a href="{{ url_for("toDone", id = a.task_id) }}" class="text-ggreen">Update</a>
+                                    <a href="{{ url_for("toDone", id = a.task_id) }}" class="text-ggreen"><i class="fa fa-pen-nib"></i></a>
                                     {% else %}
                                     {% endif %}
                                 </div>
@@ -243,13 +243,13 @@
             {% if m %}
             {% for b in m %}
             <div class="d-flex align-items-center border-bottom py-1">
-                <div class="w-100 ms-3">
+                <div class="w-100">
                     <div class="d-flex align-items-center justify-content-between">
-                        <div class="col-2">
+                        <div class="col-1">
                             <img class="rounded-circle flex-shrink-0" src="{{url_for("static",filename="assets/uploads/"+b.task_img) }}" alt="" style="width: 40px; height: 40px;">
                         </div>
-                        <div class="col-6">
-                            <p class="mt-2">{{ b.task_item }}</p>
+                        <div class="col-4">
+                            <p class="mt-2 todoItem">{{ b.task_item }} <span><a href="{{ url_for("updateTask")}}"><i class="fa fa-pen text-primary pencil"></i></a></span></p>
                         </div>
                         <div class="col-1">
                             {% if b.task_status == 1 %}
@@ -262,9 +262,9 @@
                         </div>
                         <div class="col-1">
                             {% if b.task_status == 1 %}
-                            <a href="{{ url_for("toDoing", id = b.task_id) }}" class="text-ggreen">Update</a>
+                            <a href="{{ url_for("toDoing", id = b.task_id) }}" class="text-ggreen"><i class="fa fa-pen-nib"></i></a>
                             {% elif b.task_status == 2 %}
-                            <a href="{{ url_for("toDone", id = b.task_id) }}" class="text-ggreen">Update</a>
+                            <a href="{{ url_for("toDone", id = b.task_id) }}" class="text-ggreen"><i class="fa fa-pen-nib"></i></a>
                             {% else %}
                             {% endif %}
                         </div>
@@ -298,6 +298,12 @@
                             </div>
                             <div class="d-flex align-items-center border-bottom py-3">
                                 <div class="w-100 ms-3 my-2">
+                                    <span><i class="fa fa-pen-nib text-ggreen">&emsp;</i></span>
+                                    <small> updates tasks for follow up</small>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-3">
+                                <div class="w-100 ms-3 my-2">
                                     <span><i class="fa fa-circle text-secondary">&emsp;</i></span>
                                     <small> represents accomplished tasks</small>
                                 </div>
@@ -312,6 +318,12 @@
                                 <div class="w-100 ms-3 my-2">
                                     <span><i class="fa fa-check-double text-ggreen">&emsp;</i></span>
                                     <small> represents accomplished tasks</small>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-3">
+                                <div class="w-100 ms-3 my-2">
+                                    <span><i class="fa fa-trash text-orange">&emsp;</i></span>
+                                    <small> deletes unwanted tasks</small>
                                 </div>
                             </div>
                         </div>
@@ -336,13 +348,13 @@
                     {% if l %}
                     {% for c in l %}
                     <div class="d-flex align-items-center border-bottom py-2">
-                        <div class="w-100 ms-3">
+                        <div class="w-100">
                             <div class="d-flex align-items-center justify-content-between">
-                                <div class="col-2">
+                                <div class="col-1">
                                     <img class="rounded-circle flex-shrink-0" src="{{url_for("static",filename="assets/uploads/"+c.task_img) }}" alt="" style="width: 40px; height: 40px;">
                                 </div>
-                                <div class="col-6">
-                                    <p class="mt-2">{{ c.task_item }}</p>
+                                <div class="col-4">
+                                    <p class="mt-2 todoItem">{{ c.task_item }} <span><a href="{{ url_for("updateTask")}}"><i class="fa fa-pen text-primary pencil"></i></a></span></p>
                                 </div>
                                 <div class="col-1">
                                     {% if c.task_status == 1 %}
@@ -355,9 +367,9 @@
                                 </div>
                                 <div class="col-1">
                                     {% if c.task_status == 1 %}
-                                    <a href="{{ url_for("toDoing", id = c.task_id) }}" class="text-ggreen">Update</a>
+                                    <a href="{{ url_for("toDoing", id = c.task_id) }}" class="text-ggreen"><i class="fa fa-pen-nib"></i></a>
                                     {% elif c.task_status == 2 %}
-                                    <a href="{{ url_for("toDone", id = c.task_id) }}" class="text-ggreen">Update</a>
+                                    <a href="{{ url_for("toDone", id = c.task_id) }}" class="text-ggreen"><i class="fa fa-pen-nib"></i></a>
                                     {% else %}
                                     {% endif %}
                                 </div>
